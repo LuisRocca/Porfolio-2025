@@ -1,3 +1,7 @@
+"use client"
+
+import { useLanguage } from "@/contexts/language-context"
+
 const skills = [
   { name: "Angular", level: 90, icon: "🅰️", color: "cyber-purple" },
   { name: "React", level: 85, icon: "⚛️", color: "cyber-blue" },
@@ -24,17 +28,20 @@ const tools = [
 ]
 
 export default function Skills() {
+
+  const { t } = useLanguage();
+
   return (
     <section id="skills" className="py-20 px-6 relative bg-black">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-6xl font-black mb-4 text-cyber-lime">Habilidades & Stack</h2>
+          <h2 className="text-4xl md:text-6xl font-black mb-4 text-cyber-lime">{t("skills.title")}</h2>
           <div className="h-1 w-24 bg-cyber-purple mx-auto" />
         </div>
 
         {/* Technical Skills */}
         <div className="mb-16">
-          <h3 className="text-2xl font-bold text-white mb-8 text-center">Tecnologías</h3>
+          <h3 className="text-2xl font-bold text-white mb-8 text-center">{t("skills.technologies")}</h3>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {skills.map((skill, index) => (
               <div
@@ -64,7 +71,7 @@ export default function Skills() {
 
         {/* Tools & Methodologies */}
         <div>
-          <h3 className="text-2xl font-bold text-white mb-8 text-center">Herramientas & Metodologías</h3>
+          <h3 className="text-2xl font-bold text-white mb-8 text-center">{t("skills.tools")}</h3>
           <div className="grid md:grid-cols-3 lg:grid-cols-7 gap-4">
             {tools.map((tool, index) => (
               <div

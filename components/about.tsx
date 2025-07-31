@@ -2,10 +2,12 @@
 
 import { useState, useEffect, useRef } from "react"
 import { GraduationCap, Heart, Award, Globe, Zap } from "lucide-react"
+import { useLanguage } from "@/contexts/language-context"
 
 export default function About() {
   const [isVisible, setIsVisible] = useState(false)
   const sectionRef = useRef<HTMLElement>(null)
+  const { t } = useLanguage()
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -40,7 +42,7 @@ export default function About() {
           className={`text-center mb-16 transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
         >
           <h2 className="text-4xl md:text-6xl font-black mb-4 text-white hover:text-cyber-lime transition-colors duration-300 cursor-pointer">
-            Sobre Mí
+            {t("about.title")}
           </h2>
           <div className="h-1 w-24 bg-cyber-lime mx-auto shadow-neon-lime hover:w-32 transition-all duration-300" />
         </div>
@@ -76,20 +78,14 @@ export default function About() {
               <div className="flex items-center gap-3 mb-4">
                 <Heart className="h-6 w-6 text-cyber-lime group-hover:animate-pulse" />
                 <h3 className="text-xl font-bold text-cyber-lime group-hover:text-cyber-lime-glow transition-colors">
-                  Mi Pasión
+                  {t("about.passion")}
                 </h3>
               </div>
               <p className="text-lg text-white leading-relaxed mb-4 group-hover:text-gray-100 transition-colors">
-                Desarrollador Web Full Stack con más de{" "}
-                <span className="text-cyber-lime font-bold animate-pulse">5 años de experiencia</span>, especializado en
-                crear soluciones tecnológicas escalables, modulares y optimizadas bajo las mejores prácticas y
-                metodologías ágiles como SCRUM y TDD.
+                {t("about.passionDesc")}
               </p>
               <p className="text-lg text-gray-200 leading-relaxed group-hover:text-gray-100 transition-colors">
-                Actualmente combino mi pasión por el desarrollo con el emprendimiento, liderando una{" "}
-                <span className="text-cyber-blue font-semibold">Software Factory</span>, donde aplico mi experiencia en{" "}
-                <span className="text-cyber-purple font-semibold">SEO técnico</span> para potenciar el posicionamiento
-                web.
+                {t("about.passionDesc2")}
               </p>
             </div>
 
@@ -98,18 +94,18 @@ export default function About() {
               <div className="flex items-center gap-3 mb-4">
                 <GraduationCap className="h-6 w-6 text-cyber-blue group-hover:animate-bounce" />
                 <h3 className="text-xl font-bold text-cyber-blue group-hover:text-cyber-blue-glow transition-colors">
-                  Educación
+                  {t("about.education")}
                 </h3>
               </div>
               <p className="text-lg text-gray-200 leading-relaxed mb-4 group-hover:text-gray-100 transition-colors">
-                <strong className="text-white">Licenciatura en Ingeniería Informática</strong>
+                <strong className="text-white">{t("about.degree1")}</strong>
                 <br />
-                Universidad Internacional Iberoamericana de México (UNINI México) - FUNIBER (2023 - 2028)
+                {t("about.university1")}
               </p>
               <p className="text-lg text-gray-200 leading-relaxed group-hover:text-gray-100 transition-colors">
-                <strong className="text-white">Programador Web Full Stack</strong>
+                <strong className="text-white">{t("about.degree2")}</strong>
                 <br />
-                Henry Bootcamp (2021)
+                {t("about.university2")}
               </p>
             </div>
 
@@ -118,25 +114,18 @@ export default function About() {
               <div className="flex items-center gap-3 mb-4">
                 <Award className="h-6 w-6 text-cyber-lime group-hover:animate-spin" />
                 <h3 className="text-xl font-bold text-cyber-lime group-hover:text-cyber-lime-glow transition-colors">
-                  Certificaciones & Habilidades
+                  {t("about.certifications")}
                 </h3>
               </div>
               <p className="text-lg text-gray-200 leading-relaxed mb-4 group-hover:text-gray-100 transition-colors">
-                Poseo múltiples certificaciones en tecnologías como{" "}
-                <span className="text-cyber-blue font-semibold">React.js</span>,{" "}
-                <span className="text-cyber-purple font-semibold">Node.js</span>,{" "}
-                <span className="text-cyber-lime font-semibold">Python</span> y desarrollo Full Stack. Soy un apasionado
-                del aprendizaje continuo.
+                {t("about.certificationsDesc")}
               </p>
               <div className="flex items-center gap-3 mb-4">
                 <Globe className="h-5 w-5 text-cyber-blue" />
-                <span className="text-white font-semibold">Inglés: Nivel B1</span>
+                <span className="text-white font-semibold">{t("about.english")}</span>
               </div>
               <p className="text-lg text-gray-200 leading-relaxed group-hover:text-gray-100 transition-colors">
-                Experiencia en <span className="text-cyber-purple font-semibold">WordPress</span>,{" "}
-                <span className="text-cyber-blue font-semibold">SEO técnico</span>,{" "}
-                <span className="text-cyber-lime font-semibold">posicionamiento web</span> y{" "}
-                <span className="text-cyber-purple font-semibold">automatizaciones</span> con herramientas como N8n.
+                {t("about.skillsDesc")}
               </p>
             </div>
 
@@ -145,13 +134,11 @@ export default function About() {
               <div className="flex items-center gap-3 mb-4">
                 <Zap className="h-6 w-6 text-cyber-purple group-hover:animate-pulse" />
                 <h3 className="text-xl font-bold text-cyber-purple group-hover:text-cyber-purple-glow transition-colors">
-                  Liderazgo & Mentoría
+                  {t("about.leadership")}
                 </h3>
               </div>
               <p className="text-lg text-gray-200 leading-relaxed group-hover:text-gray-100 transition-colors">
-                Experiencia liderando y ofreciendo mentorías a equipos multidisciplinarios de hasta{" "}
-                <span className="text-cyber-lime font-bold">8 personas</span> en el área del desarrollo de software,
-                garantizando entregas en tiempos estimados y cumpliendo necesidades específicas de cada proyecto.
+                {t("about.leadershipDesc")}
               </p>
             </div>
           </div>

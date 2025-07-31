@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Menu, X, Download, Github, Linkedin, Globe } from "lucide-react"
 import { useLanguage } from "@/contexts/language-context"
 
+
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -19,6 +20,15 @@ export default function Navbar() {
     { name: t("nav.projects"), href: "#projects" },
     { name: t("nav.contact"), href: "#contact" },
   ]
+
+  const handleDownloadCV = () => {
+    const link = document.createElement('a')
+    link.href = language === "es" ? "/CvLuisMiguelAlfonzoRocaDevES.pdf" : "/CvLuisMiguelAlfonzoRocaDevIN.pdf"
+    link.download = language === "es" ? "/CvLuisMiguelAlfonzoRocaDevES.pdf" : "/CvLuisMiguelAlfonzoRocaDevIN.pdf"
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+  }
 
   useEffect(() => {
     const handleScroll = () => {
@@ -125,6 +135,7 @@ export default function Navbar() {
             <Button
               size="sm"
               className="bg-cyber-purple hover:bg-cyber-purple-glow text-white shadow-neon-purple hover:shadow-neon-purple transition-all duration-300 hover:scale-110"
+              onClick={handleDownloadCV}
             >
               <Download className="h-4 w-4 mr-2" />
               {t("nav.downloadCV")}
@@ -171,13 +182,16 @@ export default function Navbar() {
                   <span>{language === "es" ? "English" : "Español"}</span>
                 </Button>
 
+                
                 <Button
                   size="sm"
                   className="bg-cyber-purple hover:bg-cyber-purple-glow text-white shadow-neon-purple justify-start"
+                  onClick={handleDownloadCV}
                 >
                   <Download className="h-4 w-4 mr-2" />
                   {t("nav.downloadCV")}
                 </Button>
+             
                 <div className="flex space-x-3">
                   <Button
                     size="sm"

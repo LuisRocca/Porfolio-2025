@@ -1,10 +1,12 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
 import { ExternalLink, Star, GitFork } from "lucide-react"
+import { useLanguage } from "@/contexts/language-context"
 
 const repositories = [
   {
     name: "angular-ecommerce",
-    description: "Aplicación de e-commerce completa construida con Angular y Material Design",
     language: "TypeScript",
     stars: 124,
     forks: 32,
@@ -12,7 +14,6 @@ const repositories = [
   },
   {
     name: "react-dashboard",
-    description: "Dashboard administrativo responsive con React y Chart.js",
     language: "JavaScript",
     stars: 89,
     forks: 21,
@@ -20,7 +21,6 @@ const repositories = [
   },
   {
     name: "nodejs-api-rest",
-    description: "API RESTful robusta con Node.js, Express y MongoDB",
     language: "JavaScript",
     stars: 156,
     forks: 45,
@@ -28,7 +28,6 @@ const repositories = [
   },
   {
     name: "dotnet-microservices",
-    description: "Arquitectura de microservicios con .NET Core y Docker",
     language: "C#",
     stars: 203,
     forks: 67,
@@ -36,7 +35,6 @@ const repositories = [
   },
   {
     name: "vue-task-manager",
-    description: "Gestor de tareas colaborativo con Vue.js y Socket.io",
     language: "Vue",
     stars: 78,
     forks: 18,
@@ -44,7 +42,6 @@ const repositories = [
   },
   {
     name: "python-data-analysis",
-    description: "Herramientas de análisis de datos con Python y Pandas",
     language: "Python",
     stars: 95,
     forks: 28,
@@ -61,11 +58,13 @@ const languageColors: { [key: string]: string } = {
 }
 
 export default function Repositories() {
+  const { t } = useLanguage()
+  
   return (
     <section className="py-20 px-6 relative bg-black">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-6xl font-black mb-4 text-cyber-purple">Repositorios GitHub</h2>
+          <h2 className="text-4xl md:text-6xl font-black mb-4 text-cyber-purple">{t("repositories.title")}</h2>
           <div className="h-1 w-24 bg-cyber-blue mx-auto" />
         </div>
 
@@ -77,14 +76,14 @@ export default function Repositories() {
             >
               <div className="flex items-start justify-between mb-4">
                 <h3 className="text-xl font-bold text-white hover:text-cyber-lime transition-colors cursor-pointer">
-                  {repo.name}
+                  {t(`repositories.${repo.name}.name`)}
                 </h3>
                 <Button size="sm" variant="ghost" className="text-cyber-blue hover:text-cyber-blue-glow">
                   <ExternalLink className="h-4 w-4" />
                 </Button>
               </div>
 
-              <p className="text-gray-200 text-sm mb-4 leading-relaxed">{repo.description}</p>
+              <p className="text-gray-200 text-sm mb-4 leading-relaxed">{t(`repositories.${repo.name}.description`)}</p>
 
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4 text-sm">
@@ -110,7 +109,7 @@ export default function Repositories() {
 
         <div className="text-center mt-12">
           <Button className="bg-cyber-blue hover:bg-cyber-blue-glow text-white px-8 py-4 text-lg font-semibold shadow-neon-blue hover:shadow-neon-blue transition-all duration-300">
-            Ver todos los repositorios
+            {t("repositories.viewAll")}
           </Button>
         </div>
       </div>

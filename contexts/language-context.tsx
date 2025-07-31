@@ -77,6 +77,21 @@ const translations = {
       "Optimización y mantenimiento de sistemas web, SEO técnico, implementación de mejoras en estructura y código para optimizar posicionamiento en buscadores. Auditorías SEO completas y colaboración con equipos multidisciplinarios.",
     "experience.sunpowerDesc":
       "Encargado de proyecto, soporte técnico, nuevas implementaciones, reuniones con clientes, Scrum Master, entrega y distribución de tiempos, consecución de objetivos, demostraciones de producto al cliente final.",
+    
+    // Experience periods and locations
+    "experience.period.qode": "noviembre 2024 - Presente",
+    "experience.period.karggu": "abril 2024 - junio 2025",
+    "experience.period.henry": "febrero 2023 - Presente",
+    "experience.period.asofty": "octubre 2023 - mayo 2024",
+    "experience.period.seo": "abril 2023 - octubre 2023",
+    "experience.period.sunpower": "febrero 2022 - febrero 2023",
+    
+    "experience.location.qode": "Distrito Capital, Colombia",
+    "experience.location.karggu": "México (Remoto)",
+    "experience.location.henry": "Buenos Aires, Argentina (Remoto)",
+    "experience.location.asofty": "Colombia",
+    "experience.location.seo": "Colombia",
+    "experience.location.sunpower": "Bogotá, Colombia",
 
     // Skills
     "skills.title": "Habilidades & Stack",
@@ -87,6 +102,53 @@ const translations = {
     "projects.title": "Proyectos Destacados",
     "projects.viewDemo": "Ver Demo",
     "projects.viewCode": "Ver Código",
+    
+    // Project details
+    "projects.ecommerce.title": "E-Commerce Platform",
+    "projects.ecommerce.description": "Plataforma completa de comercio electrónico con panel de administración, gestión de inventario y pasarela de pagos.",
+    "projects.task.title": "Task Management App",
+    "projects.task.description": "Aplicación de gestión de tareas con colaboración en tiempo real, notificaciones push y sincronización offline.",
+    "projects.analytics.title": "Analytics Dashboard",
+    "projects.analytics.description": "Dashboard interactivo para análisis de datos con gráficos en tiempo real y reportes personalizables.",
+    "projects.iot.title": "IoT Monitoring System",
+    "projects.iot.description": "Sistema de monitoreo para dispositivos IoT con alertas automáticas y visualización de datos en tiempo real.",
+
+    // Repositories
+    "repositories.title": "Repositorios GitHub",
+    "repositories.viewAll": "Ver todos los repositorios",
+    
+    // Repository details
+    "repositories.angular-ecommerce.name": "angular-ecommerce",
+    "repositories.angular-ecommerce.description": "Aplicación de e-commerce completa construida con Angular y Material Design",
+    "repositories.react-dashboard.name": "react-dashboard",
+    "repositories.react-dashboard.description": "Dashboard administrativo responsive con React y Chart.js",
+    "repositories.nodejs-api-rest.name": "nodejs-api-rest",
+    "repositories.nodejs-api-rest.description": "API RESTful robusta con Node.js, Express y MongoDB",
+    "repositories.dotnet-microservices.name": "dotnet-microservices",
+    "repositories.dotnet-microservices.description": "Arquitectura de microservicios con .NET Core y Docker",
+    "repositories.vue-task-manager.name": "vue-task-manager",
+    "repositories.vue-task-manager.description": "Gestor de tareas colaborativo con Vue.js y Socket.io",
+    "repositories.python-data-analysis.name": "python-data-analysis",
+    "repositories.python-data-analysis.description": "Herramientas de análisis de datos con Python y Pandas",
+
+    // Testimonials
+    "testimonials.title": "Testimonios",
+    
+    // Testimonial details
+    "testimonials.maria.name": "María González",
+    "testimonials.maria.role": "Product Manager",
+    "testimonials.maria.company": "TechCorp",
+    "testimonials.maria.content": "Luis Miguel entregó un producto excepcional que superó nuestras expectativas. Su atención al detalle y capacidad técnica son impresionantes.",
+    
+    "testimonials.carlos.name": "Carlos Rodríguez",
+    "testimonials.carlos.role": "CTO",
+    "testimonials.carlos.company": "StartupXYZ",
+    "testimonials.carlos.content": "Trabajar con Luis Miguel fue una experiencia fantástica. Su conocimiento técnico y profesionalismo hicieron que el proyecto fuera un éxito total.",
+    
+    "testimonials.ana.name": "Ana Martínez",
+    "testimonials.ana.role": "Lead Developer",
+    "testimonials.ana.company": "DevStudio",
+    "testimonials.ana.content": "La calidad del código y la arquitectura propuesta por Luis Miguel son de primer nivel. Definitivamente recomendaría sus servicios.",
 
     // Contact
     "contact.title": "Contacto",
@@ -109,6 +171,40 @@ const translations = {
     "contact.response": "Respuesta típica: 2-4 horas",
     "contact.projectQuestion": "¿Tienes un proyecto en mente? ¡Hablemos!",
     "contact.scheduleCall": "Agendar llamada",
+    "contact.error": "Error al enviar. Inténtalo de nuevo.",
+    "contact.namePlaceholder": "Tu nombre",
+    "contact.emailPlaceholder": "tu@email.com",
+    "contact.phonePlaceholder": "+57 300 123 4567",
+    "contact.companyPlaceholder": "Nombre de tu empresa",
+    "contact.messagePlaceholder": "Cuéntame más detalles sobre tu proyecto, objetivos, funcionalidades requeridas, etc.",
+    "contact.projectTypePlaceholder": "Selecciona el tipo",
+    "contact.budgetPlaceholder": "Rango de presupuesto",
+    "contact.timelinePlaceholder": "¿Cuándo necesitas el proyecto?",
+    
+    // Project types
+    "contact.projectType.web-app": "Aplicación Web",
+    "contact.projectType.mobile-app": "Aplicación Móvil",
+    "contact.projectType.ecommerce": "E-commerce",
+    "contact.projectType.dashboard": "Dashboard/Analytics",
+    "contact.projectType.api": "API/Backend",
+    "contact.projectType.maintenance": "Mantenimiento",
+    "contact.projectType.consulting": "Consultoría",
+    "contact.projectType.other": "Otro",
+    
+    // Budget ranges
+    "contact.budget.under-5k": "Menos de $5,000 USD",
+    "contact.budget.5k-15k": "$5,000 - $15,000 USD",
+    "contact.budget.15k-30k": "$15,000 - $30,000 USD",
+    "contact.budget.30k-50k": "$30,000 - $50,000 USD",
+    "contact.budget.over-50k": "Más de $50,000 USD",
+    "contact.budget.discuss": "Prefiero discutirlo",
+    
+    // Timeline options
+    "contact.timeline.asap": "Lo antes posible",
+    "contact.timeline.1-month": "En 1 mes",
+    "contact.timeline.2-3-months": "En 2-3 meses",
+    "contact.timeline.3-6-months": "En 3-6 meses",
+    "contact.timeline.flexible": "Flexible",
 
     // Footer
     "footer.rights": "Todos los derechos reservados.",
@@ -179,6 +275,21 @@ const translations = {
       "Web systems optimization and maintenance, technical SEO, implementation of improvements in structure and code to optimize search engine positioning. Complete SEO audits and collaboration with multidisciplinary teams.",
     "experience.sunpowerDesc":
       "Project manager, technical support, new implementations, client meetings, Scrum Master, delivery and time distribution, goal achievement, product demonstrations to end client.",
+    
+    // Experience periods and locations
+    "experience.period.qode": "November 2024 - Present",
+    "experience.period.karggu": "April 2024 - June 2025",
+    "experience.period.henry": "February 2023 - Present",
+    "experience.period.asofty": "October 2023 - May 2024",
+    "experience.period.seo": "April 2023 - October 2023",
+    "experience.period.sunpower": "February 2022 - February 2023",
+    
+    "experience.location.qode": "Capital District, Colombia",
+    "experience.location.karggu": "Mexico (Remote)",
+    "experience.location.henry": "Buenos Aires, Argentina (Remote)",
+    "experience.location.asofty": "Colombia",
+    "experience.location.seo": "Colombia",
+    "experience.location.sunpower": "Bogotá, Colombia",
 
     // Skills
     "skills.title": "Skills & Stack",
@@ -189,6 +300,53 @@ const translations = {
     "projects.title": "Featured Projects",
     "projects.viewDemo": "View Demo",
     "projects.viewCode": "View Code",
+    
+    // Project details
+    "projects.ecommerce.title": "E-Commerce Platform",
+    "projects.ecommerce.description": "Complete e-commerce platform with admin panel, inventory management and payment gateway.",
+    "projects.task.title": "Task Management App",
+    "projects.task.description": "Task management application with real-time collaboration, push notifications and offline synchronization.",
+    "projects.analytics.title": "Analytics Dashboard",
+    "projects.analytics.description": "Interactive dashboard for data analysis with real-time charts and customizable reports.",
+    "projects.iot.title": "IoT Monitoring System",
+    "projects.iot.description": "IoT device monitoring system with automatic alerts and real-time data visualization.",
+
+    // Repositories
+    "repositories.title": "GitHub Repositories",
+    "repositories.viewAll": "View all repositories",
+    
+    // Repository details
+    "repositories.angular-ecommerce.name": "angular-ecommerce",
+    "repositories.angular-ecommerce.description": "Complete e-commerce application built with Angular and Material Design",
+    "repositories.react-dashboard.name": "react-dashboard",
+    "repositories.react-dashboard.description": "Responsive admin dashboard with React and Chart.js",
+    "repositories.nodejs-api-rest.name": "nodejs-api-rest",
+    "repositories.nodejs-api-rest.description": "Robust RESTful API with Node.js, Express and MongoDB",
+    "repositories.dotnet-microservices.name": "dotnet-microservices",
+    "repositories.dotnet-microservices.description": "Microservices architecture with .NET Core and Docker",
+    "repositories.vue-task-manager.name": "vue-task-manager",
+    "repositories.vue-task-manager.description": "Collaborative task manager with Vue.js and Socket.io",
+    "repositories.python-data-analysis.name": "python-data-analysis",
+    "repositories.python-data-analysis.description": "Data analysis tools with Python and Pandas",
+
+    // Testimonials
+    "testimonials.title": "Testimonials",
+    
+    // Testimonial details
+    "testimonials.maria.name": "María González",
+    "testimonials.maria.role": "Product Manager",
+    "testimonials.maria.company": "TechCorp",
+    "testimonials.maria.content": "Luis Miguel delivered an exceptional product that exceeded our expectations. His attention to detail and technical capabilities are impressive.",
+    
+    "testimonials.carlos.name": "Carlos Rodríguez",
+    "testimonials.carlos.role": "CTO",
+    "testimonials.carlos.company": "StartupXYZ",
+    "testimonials.carlos.content": "Working with Luis Miguel was a fantastic experience. His technical knowledge and professionalism made the project a total success.",
+    
+    "testimonials.ana.name": "Ana Martínez",
+    "testimonials.ana.role": "Lead Developer",
+    "testimonials.ana.company": "DevStudio",
+    "testimonials.ana.content": "The code quality and architecture proposed by Luis Miguel are top-notch. I would definitely recommend his services.",
 
     // Contact
     "contact.title": "Contact",
@@ -211,6 +369,40 @@ const translations = {
     "contact.response": "Typical response: 2-4 hours",
     "contact.projectQuestion": "Have a project in mind? Let's talk!",
     "contact.scheduleCall": "Schedule call",
+    "contact.error": "Error sending message. Please try again.",
+    "contact.namePlaceholder": "Your name",
+    "contact.emailPlaceholder": "your@email.com",
+    "contact.phonePlaceholder": "+57 300 123 4567",
+    "contact.companyPlaceholder": "Your company name",
+    "contact.messagePlaceholder": "Tell me more details about your project, objectives, required functionalities, etc.",
+    "contact.projectTypePlaceholder": "Select type",
+    "contact.budgetPlaceholder": "Budget range",
+    "contact.timelinePlaceholder": "When do you need the project?",
+    
+    // Project types
+    "contact.projectType.web-app": "Web Application",
+    "contact.projectType.mobile-app": "Mobile Application",
+    "contact.projectType.ecommerce": "E-commerce",
+    "contact.projectType.dashboard": "Dashboard/Analytics",
+    "contact.projectType.api": "API/Backend",
+    "contact.projectType.maintenance": "Maintenance",
+    "contact.projectType.consulting": "Consulting",
+    "contact.projectType.other": "Other",
+    
+    // Budget ranges
+    "contact.budget.under-5k": "Less than $5,000 USD",
+    "contact.budget.5k-15k": "$5,000 - $15,000 USD",
+    "contact.budget.15k-30k": "$15,000 - $30,000 USD",
+    "contact.budget.30k-50k": "$30,000 - $50,000 USD",
+    "contact.budget.over-50k": "More than $50,000 USD",
+    "contact.budget.discuss": "I prefer to discuss it",
+    
+    // Timeline options
+    "contact.timeline.asap": "As soon as possible",
+    "contact.timeline.1-month": "In 1 month",
+    "contact.timeline.2-3-months": "In 2-3 months",
+    "contact.timeline.3-6-months": "In 3-6 months",
+    "contact.timeline.flexible": "Flexible",
 
     // Footer
     "footer.rights": "All rights reserved.",

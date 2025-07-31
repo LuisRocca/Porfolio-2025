@@ -9,8 +9,11 @@ import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Mail, Linkedin, Phone, MapPin, Send, Clock, CheckCircle, AlertCircle } from "lucide-react"
+import { useLanguage } from "@/contexts/language-context"
 
 export default function Contact() {
+  const { t } = useLanguage()
+  
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -61,10 +64,10 @@ export default function Contact() {
     <section id="contact" className="py-20 px-6 relative bg-black">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-6xl font-black mb-4 text-cyber-blue">Contacto</h2>
+          <h2 className="text-4xl md:text-6xl font-black mb-4 text-cyber-blue">{t("contact.title")}</h2>
           <div className="h-1 w-24 bg-cyber-lime mx-auto" />
           <p className="text-xl text-gray-300 mt-6 max-w-2xl mx-auto">
-            ¿Tienes un proyecto en mente? ¡Hablemos y hagámoslo realidad juntos!
+            {t("contact.subtitle")}
           </p>
         </div>
 
@@ -89,7 +92,7 @@ export default function Contact() {
                   <Phone className="h-6 w-6 text-cyber-blue" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-white">Teléfono</h4>
+                  <h4 className="font-bold text-white">{t("contact.phone")}</h4>
                   <p className="text-cyber-blue">+57 319 711 07 18</p>
                 </div>
               </div>
@@ -129,10 +132,10 @@ export default function Contact() {
             <div className="bg-cyber-gray/60 backdrop-blur-sm border border-cyber-blue/50 rounded-lg p-6 shadow-cyber-card">
               <div className="flex items-center gap-3 mb-4">
                 <Clock className="h-5 w-5 text-cyber-blue" />
-                <h4 className="font-bold text-white">Disponibilidad</h4>
+                <h4 className="font-bold text-white">{t("contact.availability")}</h4>
               </div>
-              <p className="text-gray-200 text-sm mb-2">Lun - Vie: 8:00 AM - 6:00 PM (COT)</p>
-              <p className="text-gray-200 text-sm">Respuesta típica: 2-4 horas</p>
+              <p className="text-gray-200 text-sm mb-2">{t("contact.schedule")}</p>
+              <p className="text-gray-200 text-sm">{t("contact.response")}</p>
             </div>
           </div>
 
@@ -141,28 +144,28 @@ export default function Contact() {
             <div className="bg-cyber-gray/60 backdrop-blur-sm border border-cyber-purple/50 rounded-lg p-8 shadow-cyber-card">
               <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
                 <Send className="h-6 w-6 text-cyber-purple" />
-                Cuéntame sobre tu proyecto
+                {t("contact.formTitle")}
               </h3>
 
               <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Basic Info Row */}
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-medium text-white mb-2">Nombre completo *</label>
+                    <label className="block text-sm font-medium text-white mb-2">{t("contact.name")} *</label>
                     <Input
                       required
-                      placeholder="Tu nombre"
+                      placeholder={t("contact.namePlaceholder")}
                       value={formData.name}
                       onChange={(e) => handleInputChange("name", e.target.value)}
                       className="bg-cyber-darker/80 border-cyber-purple/60 text-white placeholder-gray-400 focus:border-cyber-purple focus:ring-cyber-purple"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-white mb-2">Email *</label>
+                    <label className="block text-sm font-medium text-white mb-2">{t("contact.email")} *</label>
                     <Input
                       type="email"
                       required
-                      placeholder="tu@email.com"
+                      placeholder={t("contact.emailPlaceholder")}
                       value={formData.email}
                       onChange={(e) => handleInputChange("email", e.target.value)}
                       className="bg-cyber-darker/80 border-cyber-purple/60 text-white placeholder-gray-400 focus:border-cyber-purple focus:ring-cyber-purple"
@@ -173,18 +176,18 @@ export default function Contact() {
                 {/* Contact & Company Row */}
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-medium text-white mb-2">Teléfono</label>
+                    <label className="block text-sm font-medium text-white mb-2">{t("contact.phone")}</label>
                     <Input
-                      placeholder="+57 300 123 4567"
+                      placeholder={t("contact.phonePlaceholder")}
                       value={formData.phone}
                       onChange={(e) => handleInputChange("phone", e.target.value)}
                       className="bg-cyber-darker/80 border-cyber-purple/60 text-white placeholder-gray-400 focus:border-cyber-purple focus:ring-cyber-purple"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-white mb-2">Empresa/Organización</label>
+                    <label className="block text-sm font-medium text-white mb-2">{t("contact.company")}</label>
                     <Input
-                      placeholder="Nombre de tu empresa"
+                      placeholder={t("contact.companyPlaceholder")}
                       value={formData.company}
                       onChange={(e) => handleInputChange("company", e.target.value)}
                       className="bg-cyber-darker/80 border-cyber-purple/60 text-white placeholder-gray-400 focus:border-cyber-purple focus:ring-cyber-purple"
@@ -195,39 +198,39 @@ export default function Contact() {
                 {/* Project Details Row */}
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-medium text-white mb-2">Tipo de proyecto *</label>
+                    <label className="block text-sm font-medium text-white mb-2">{t("contact.projectType")} *</label>
                     <Select
                       value={formData.projectType}
                       onValueChange={(value) => handleInputChange("projectType", value)}
                     >
                       <SelectTrigger className="bg-cyber-darker/80 border-cyber-purple/60 text-white">
-                        <SelectValue placeholder="Selecciona el tipo" />
+                        <SelectValue placeholder={t("contact.projectTypePlaceholder")} />
                       </SelectTrigger>
                       <SelectContent className="bg-cyber-darker border-cyber-purple/60">
-                        <SelectItem value="web-app">Aplicación Web</SelectItem>
-                        <SelectItem value="mobile-app">Aplicación Móvil</SelectItem>
-                        <SelectItem value="ecommerce">E-commerce</SelectItem>
-                        <SelectItem value="dashboard">Dashboard/Analytics</SelectItem>
-                        <SelectItem value="api">API/Backend</SelectItem>
-                        <SelectItem value="maintenance">Mantenimiento</SelectItem>
-                        <SelectItem value="consulting">Consultoría</SelectItem>
-                        <SelectItem value="other">Otro</SelectItem>
+                        <SelectItem value="web-app">{t("contact.projectType.web-app")}</SelectItem>
+                        <SelectItem value="mobile-app">{t("contact.projectType.mobile-app")}</SelectItem>
+                        <SelectItem value="ecommerce">{t("contact.projectType.ecommerce")}</SelectItem>
+                        <SelectItem value="dashboard">{t("contact.projectType.dashboard")}</SelectItem>
+                        <SelectItem value="api">{t("contact.projectType.api")}</SelectItem>
+                        <SelectItem value="maintenance">{t("contact.projectType.maintenance")}</SelectItem>
+                        <SelectItem value="consulting">{t("contact.projectType.consulting")}</SelectItem>
+                        <SelectItem value="other">{t("contact.projectType.other")}</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-white mb-2">Presupuesto estimado</label>
+                    <label className="block text-sm font-medium text-white mb-2">{t("contact.budget")}</label>
                     <Select value={formData.budget} onValueChange={(value) => handleInputChange("budget", value)}>
                       <SelectTrigger className="bg-cyber-darker/80 border-cyber-purple/60 text-white">
-                        <SelectValue placeholder="Rango de presupuesto" />
+                        <SelectValue placeholder={t("contact.budgetPlaceholder")} />
                       </SelectTrigger>
                       <SelectContent className="bg-cyber-darker border-cyber-purple/60">
-                        <SelectItem value="under-5k">Menos de $5,000 USD</SelectItem>
-                        <SelectItem value="5k-15k">$5,000 - $15,000 USD</SelectItem>
-                        <SelectItem value="15k-30k">$15,000 - $30,000 USD</SelectItem>
-                        <SelectItem value="30k-50k">$30,000 - $50,000 USD</SelectItem>
-                        <SelectItem value="over-50k">Más de $50,000 USD</SelectItem>
-                        <SelectItem value="discuss">Prefiero discutirlo</SelectItem>
+                        <SelectItem value="under-5k">{t("contact.budget.under-5k")}</SelectItem>
+                        <SelectItem value="5k-15k">{t("contact.budget.5k-15k")}</SelectItem>
+                        <SelectItem value="15k-30k">{t("contact.budget.15k-30k")}</SelectItem>
+                        <SelectItem value="30k-50k">{t("contact.budget.30k-50k")}</SelectItem>
+                        <SelectItem value="over-50k">{t("contact.budget.over-50k")}</SelectItem>
+                        <SelectItem value="discuss">{t("contact.budget.discuss")}</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -235,27 +238,27 @@ export default function Contact() {
 
                 {/* Timeline */}
                 <div>
-                  <label className="block text-sm font-medium text-white mb-2">Timeline del proyecto</label>
+                  <label className="block text-sm font-medium text-white mb-2">{t("contact.timeline")}</label>
                   <Select value={formData.timeline} onValueChange={(value) => handleInputChange("timeline", value)}>
                     <SelectTrigger className="bg-cyber-darker/80 border-cyber-purple/60 text-white">
-                      <SelectValue placeholder="¿Cuándo necesitas el proyecto?" />
+                      <SelectValue placeholder={t("contact.timelinePlaceholder")} />
                     </SelectTrigger>
                     <SelectContent className="bg-cyber-darker border-cyber-purple/60">
-                      <SelectItem value="asap">Lo antes posible</SelectItem>
-                      <SelectItem value="1-month">En 1 mes</SelectItem>
-                      <SelectItem value="2-3-months">En 2-3 meses</SelectItem>
-                      <SelectItem value="3-6-months">En 3-6 meses</SelectItem>
-                      <SelectItem value="flexible">Flexible</SelectItem>
+                      <SelectItem value="asap">{t("contact.timeline.asap")}</SelectItem>
+                      <SelectItem value="1-month">{t("contact.timeline.1-month")}</SelectItem>
+                      <SelectItem value="2-3-months">{t("contact.timeline.2-3-months")}</SelectItem>
+                      <SelectItem value="3-6-months">{t("contact.timeline.3-6-months")}</SelectItem>
+                      <SelectItem value="flexible">{t("contact.timeline.flexible")}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
 
                 {/* Message */}
                 <div>
-                  <label className="block text-sm font-medium text-white mb-2">Descripción del proyecto *</label>
+                  <label className="block text-sm font-medium text-white mb-2">{t("contact.message")} *</label>
                   <Textarea
                     required
-                    placeholder="Cuéntame más detalles sobre tu proyecto, objetivos, funcionalidades requeridas, etc."
+                    placeholder={t("contact.messagePlaceholder")}
                     rows={5}
                     value={formData.message}
                     onChange={(e) => handleInputChange("message", e.target.value)}
@@ -272,7 +275,7 @@ export default function Contact() {
                     className="border-cyber-purple/60 data-[state=checked]:bg-cyber-purple"
                   />
                   <label htmlFor="newsletter" className="text-sm text-gray-300">
-                    Quiero recibir actualizaciones sobre nuevos proyectos y tecnologías
+                    {t("contact.newsletter")}
                   </label>
                 </div>
 
@@ -281,12 +284,12 @@ export default function Contact() {
                   {submitStatus === "success" ? (
                     <div className="flex items-center justify-center gap-3 p-4 bg-cyber-lime/20 border border-cyber-lime/50 rounded-lg">
                       <CheckCircle className="h-5 w-5 text-cyber-lime" />
-                      <span className="text-cyber-lime font-medium">¡Mensaje enviado exitosamente!</span>
+                      <span className="text-cyber-lime font-medium">{t("contact.success")}</span>
                     </div>
                   ) : submitStatus === "error" ? (
                     <div className="flex items-center justify-center gap-3 p-4 bg-red-500/20 border border-red-500/50 rounded-lg mb-4">
                       <AlertCircle className="h-5 w-5 text-red-400" />
-                      <span className="text-red-400 font-medium">Error al enviar. Inténtalo de nuevo.</span>
+                      <span className="text-red-400 font-medium">{t("contact.error")}</span>
                     </div>
                   ) : null}
 
@@ -298,12 +301,12 @@ export default function Contact() {
                     {isSubmitting ? (
                       <div className="flex items-center gap-3">
                         <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                        Enviando mensaje...
+                        {t("contact.sending")}
                       </div>
                     ) : (
                       <div className="flex items-center gap-3">
                         <Send className="h-5 w-5" />
-                        Enviar mensaje
+                        {t("contact.send")}
                       </div>
                     )}
                   </Button>
