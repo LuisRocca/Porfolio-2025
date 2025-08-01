@@ -2,29 +2,82 @@
 
 import { useLanguage } from "@/contexts/language-context"
 
+
+          
+          
 const skills = [
-  { name: "Angular", level: 90, icon: "🅰️", color: "cyber-purple" },
-  { name: "React", level: 85, icon: "⚛️", color: "cyber-blue" },
-  { name: "TypeScript", level: 90, icon: "📘", color: "cyber-blue" },
-  { name: "JavaScript", level: 88, icon: "🟨", color: "cyber-lime" },
-  { name: "Node.js", level: 85, icon: "🟢", color: "cyber-lime" },
-  { name: ".NET Core", level: 82, icon: "🔷", color: "cyber-purple" },
-  { name: "C#", level: 80, icon: "💜", color: "cyber-purple" },
-  { name: "Docker", level: 75, icon: "🐳", color: "cyber-blue" },
-  { name: "MySQL", level: 85, icon: "🗄️", color: "cyber-lime" },
-  { name: "PostgreSQL", level: 80, icon: "🐘", color: "cyber-blue" },
-  { name: "MongoDB", level: 78, icon: "🍃", color: "cyber-lime" },
-  { name: "Nest.js", level: 75, icon: "🦅", color: "cyber-purple" },
+  { name: "Angular", level: 90, icon: 
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/angular/angular-original.svg" />
+  , color: "cyber-purple" },
+  { name: "React", level: 85, icon: 
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" />
+  , color: "cyber-blue" },
+  { name: "Next.js", level: 85, icon: 
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg" />
+  , color: "cyber-blue" },
+  { name: "TypeScript", level: 90, icon: 
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg" />
+  , color: "cyber-blue" },
+  { name: "JavaScript", level: 88, icon: 
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" />
+  , color: "cyber-lime" },
+  { name: "Node.js", level: 85, icon: 
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original-wordmark.svg" />
+  , color: "cyber-lime" },
+  { name: ".NET Core", level: 82, icon: 
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/dotnetcore/dotnetcore-original.svg" />
+  , color: "cyber-purple" },
+  { name: "C#", level: 50, icon: 
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/csharp/csharp-original.svg" />
+  , color: "cyber-purple" },
+  { name: "Docker", level: 75, icon: 
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-plain-wordmark.svg" />
+  , color: "cyber-blue" },
+  { name: "MySQL", level: 85, icon: 
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original-wordmark.svg" />
+  , color: "cyber-lime" },
+  { name: "PostgreSQL", level: 80, icon: 
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original-wordmark.svg" />
+  , color: "cyber-blue" },
+  { name: "SQL", level: 80, icon: 
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azuresqldatabase/azuresqldatabase-original.svg" />
+  , color: "cyber-blue" },
+  { name: "MongoDB", level: 78, icon: 
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-plain-wordmark.svg" />
+  , color: "cyber-lime" },
+  { name: "Express", level: 75, icon: 
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/express/express-original-wordmark.svg" />
+  , color: "cyber-purple" },
+  { name: "AWS", level: 75, icon: 
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" />
+  , color: "cyber-purple" },
+  { name: "Nest.js", level: 75, icon: 
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nestjs/nestjs-original.svg" />
+  , color: "cyber-purple" },
 ]
 
 const tools = [
-  { name: "Git/GitHub", icon: "🔧" },
-  { name: "Postman", icon: "📮" },
-  { name: "Scrum", icon: "🔄" },
-  { name: "Jira", icon: "📊" },
-  { name: "Trello", icon: "📋" },
-  { name: "TypeORM", icon: "🔗" },
-  { name: "N8n", icon: "🔀" },
+  { name: "Git", icon: 
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" />
+   },
+   { name: "GitHub", icon: 
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" />
+   },
+  { name: "Postman", icon: 
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postman/postman-original.svg" />
+   },
+  { name: "Bootsatrap", icon: 
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bootstrap/bootstrap-original.svg" />
+   },
+  { name: "Jira", icon: 
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jira/jira-original.svg" />
+   },
+  { name: "Trello", icon: 
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/trello/trello-original.svg" />
+   },
+  { name: "Jquery", icon: 
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jquery/jquery-original.svg" />
+   },
 ]
 
 export default function Skills() {

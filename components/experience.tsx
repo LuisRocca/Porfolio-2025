@@ -69,7 +69,7 @@ export default function Experience() {
       description: t("experience.sunpowerDesc"),
       technologies: ["Project Management", "Scrum Master", "Client Relations", "Technical Support"],
       type: "past",
-      icon: <Briefcase className="h-5 w-5" />,
+      icon: <Code className="h-5 w-5" />,
     },
   ]
 

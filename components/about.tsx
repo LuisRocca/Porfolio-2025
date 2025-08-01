@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react"
 import { GraduationCap, Heart, Award, Globe, Zap } from "lucide-react"
 import { useLanguage } from "@/contexts/language-context"
+import Image from "next/image"
 
 export default function About() {
   const [isVisible, setIsVisible] = useState(false)
@@ -54,8 +55,15 @@ export default function About() {
             <div className="w-80 h-80 mx-auto relative group">
               {/* Avatar with enhanced animations */}
               <div className="w-full h-full rounded-full bg-gradient-to-br from-cyber-purple via-cyber-blue to-cyber-lime p-1 shadow-neon-purple animate-pulse-slow group-hover:animate-spin transition-all duration-500">
-                <div className="w-full h-full rounded-full bg-black flex items-center justify-center text-6xl border-2 border-cyber-gray group-hover:scale-110 transition-transform duration-300">
-                  👨‍💻
+                <div className="w-full h-full rounded-full bg-black flex items-center justify-center text-6xl border-2 border-cyber-gray group-hover:scale-110 transition-transform duration-300 overflow-hidden">
+                  <Image 
+                    src="/IMG-20250607-WA0044.jpg"
+                    alt="Luis Miguel Alfonzo Roca"
+                    width={200}
+                    height={200}
+                    className="w-full h-full object-cover rounded-full"
+                    priority
+                  />
                 </div>
               </div>
 

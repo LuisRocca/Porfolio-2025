@@ -33,27 +33,47 @@ export default function Contact() {
     e.preventDefault()
     setIsSubmitting(true)
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 2000))
-
-    setIsSubmitting(false)
-    setSubmitStatus("success")
-
-    // Reset form after success
-    setTimeout(() => {
-      setSubmitStatus("idle")
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        company: "",
-        projectType: "",
-        budget: "",
-        timeline: "",
-        message: "",
-        newsletter: false,
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
       })
-    }, 3000)
+
+      if (response.ok) {
+        setSubmitStatus("success")
+        // Reset form after success
+        setTimeout(() => {
+          setSubmitStatus("idle")
+          setFormData({
+            name: "",
+            email: "",
+            phone: "",
+            company: "",
+            projectType: "",
+            budget: "",
+            timeline: "",
+            message: "",
+            newsletter: false,
+          })
+        }, 3000)
+      } else {
+        setSubmitStatus("error")
+        setTimeout(() => {
+          setSubmitStatus("idle")
+        }, 3000)
+      }
+    } catch (error) {
+      console.error('Error:', error)
+      setSubmitStatus("error")
+      setTimeout(() => {
+        setSubmitStatus("idle")
+      }, 3000)
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const handleInputChange = (field: string, value: string | boolean) => {
@@ -280,7 +300,7 @@ export default function Contact() {
                 </div>
 
                 {/* Submit Button */}
-                <div className="pt-4">
+                <div className="pt-4 pb-4">
                   {submitStatus === "success" ? (
                     <div className="flex items-center justify-center gap-3 p-4 bg-cyber-lime/20 border border-cyber-lime/50 rounded-lg">
                       <CheckCircle className="h-5 w-5 text-cyber-lime" />

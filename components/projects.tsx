@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { ExternalLink, Github } from "lucide-react"
 import { useLanguage } from "@/contexts/language-context"
-
+import Link from "next/link"
 
 
 export default function Projects() {
@@ -13,18 +13,18 @@ export default function Projects() {
     {
       title: t("projects.ecommerce.title"),
       description: t("projects.ecommerce.description"),
-      technologies: ["Angular", "Node.js", "MongoDB", "Stripe"],
-      demoUrl: "#",
-      codeUrl: "#",
-      image: "/placeholder.svg?height=200&width=300",
+      technologies: ["Next.js", "Node.js", "TypeScript","React", "V0"],
+      demoUrl: "https://v0-v0-ui-ux-design.vercel.app/",
+      codeUrl: "https://github.com/LuisRocca/DDMRP_Simulator_V1",
+      image: "/Screenshot 2025-07-31 190203.png",
     },
     {
       title: t("projects.task.title"),
       description: t("projects.task.description"),
       technologies: ["React", "TypeScript", "Socket.io", "PostgreSQL"],
-      demoUrl: "#",
+      demoUrl: "https://v0-clinica-ambulatoria-prototipo.vercel.app/",
       codeUrl: "#",
-      image: "/placeholder.svg?height=200&width=300",
+      image: "/Screenshot 2025-07-31 230859.png",
     },
     {
       title: t("projects.analytics.title"),
@@ -86,7 +86,10 @@ export default function Projects() {
                 </div>
 
                 <div className="flex gap-4">
-                  <Button className="bg-cyber-lime hover:bg-cyber-lime-glow text-black font-semibold shadow-neon-lime hover:shadow-neon-lime transition-all duration-300">
+                  <Button 
+                    className="bg-cyber-lime hover:bg-cyber-lime-glow text-black font-semibold shadow-neon-lime hover:shadow-neon-lime transition-all duration-300"
+                    onClick={() => window.open(project.demoUrl, "_blank", "noopener,noreferrer")}
+                  >
                     <ExternalLink className="mr-2 h-4 w-4" />
                     {t("projects.viewDemo")}
                   </Button>

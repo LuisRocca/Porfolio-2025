@@ -104,9 +104,9 @@ const translations = {
     "projects.viewCode": "Ver Código",
     
     // Project details
-    "projects.ecommerce.title": "E-Commerce Platform",
-    "projects.ecommerce.description": "Plataforma completa de comercio electrónico con panel de administración, gestión de inventario y pasarela de pagos.",
-    "projects.task.title": "Task Management App",
+    "projects.ecommerce.title": "DDMRP Simulador",
+    "projects.ecommerce.description": "Plataforma completa de DDMRP Simulador con panel de administración, gestión de inventario y pasarela de pagos.",
+    "projects.task.title": "Sistema Clínico Ambulatorio",
     "projects.task.description": "Aplicación de gestión de tareas con colaboración en tiempo real, notificaciones push y sincronización offline.",
     "projects.analytics.title": "Analytics Dashboard",
     "projects.analytics.description": "Dashboard interactivo para análisis de datos con gráficos en tiempo real y reportes personalizables.",
@@ -184,7 +184,7 @@ const translations = {
     // Project types
     "contact.projectType.web-app": "Aplicación Web",
     "contact.projectType.mobile-app": "Aplicación Móvil",
-    "contact.projectType.ecommerce": "E-commerce",
+    "contact.projectType.ecommerce": "DDMRP Simulator",
     "contact.projectType.dashboard": "Dashboard/Analytics",
     "contact.projectType.api": "API/Backend",
     "contact.projectType.maintenance": "Mantenimiento",
@@ -302,10 +302,10 @@ const translations = {
     "projects.viewCode": "View Code",
     
     // Project details
-    "projects.ecommerce.title": "E-Commerce Platform",
-    "projects.ecommerce.description": "Complete e-commerce platform with admin panel, inventory management and payment gateway.",
-    "projects.task.title": "Task Management App",
-    "projects.task.description": "Task management application with real-time collaboration, push notifications and offline synchronization.",
+    "projects.ecommerce.title": "DDMRP Simulator",
+    "projects.ecommerce.description": "Complete DDMRP Simulator with admin panel, inventory management and payment gateway.",
+    "projects.task.title": "Outpatient Clinical System",
+    "projects.task.description": "Outpatient Clinical System with real-time collaboration, push notifications and offline synchronization.",
     "projects.analytics.title": "Analytics Dashboard",
     "projects.analytics.description": "Interactive dashboard for data analysis with real-time charts and customizable reports.",
     "projects.iot.title": "IoT Monitoring System",
@@ -324,8 +324,8 @@ const translations = {
     "repositories.nodejs-api-rest.description": "Robust RESTful API with Node.js, Express and MongoDB",
     "repositories.dotnet-microservices.name": "dotnet-microservices",
     "repositories.dotnet-microservices.description": "Microservices architecture with .NET Core and Docker",
-    "repositories.vue-task-manager.name": "vue-task-manager",
-    "repositories.vue-task-manager.description": "Collaborative task manager with Vue.js and Socket.io",
+    "repositories.vue-task-manager.name": "Outpatient Clinical System",
+    "repositories.vue-task-manager.description": "Collaborative Outpatient Clinical System with Vue.js and Socket.io",
     "repositories.python-data-analysis.name": "python-data-analysis",
     "repositories.python-data-analysis.description": "Data analysis tools with Python and Pandas",
 
