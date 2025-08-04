@@ -10,14 +10,14 @@ export async function POST(request: NextRequest) {
     const transporter = nodemailer.createTransport({
       service: 'gmail', 
       auth: {
-        user: "luismiguel.rocca96@gmail.com", // tu email
-        pass: "zmtm niti ngmn ayrx", // tu contraseña de aplicación
+        user: process.env.EMAIL_USER, // tu email
+        pass: process.env.EMAIL_PASS, // tu contraseña de aplicación
       },
     })
 
     // Configurar el email
     const mailOptions = {
-      from: "luismiguel.rocca96@gmail.com",
+      from: process.env.EMAIL_USER,
       to: 'luis.rocca96@gmail.com', // tu email donde recibirás los mensajes
       subject: `Nuevo mensaje de contacto de ${name}`,
       html: `
