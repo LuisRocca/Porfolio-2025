@@ -26,22 +26,22 @@ export default function Projects() {
       codeUrl: "#",
       image: "/Screenshot 2025-07-31 230859.png",
     },
-    {
-      title: t("projects.analytics.title"),
-      description: t("projects.analytics.description"),
-      technologies: [".NET Core", "React", "D3.js", "SQL Server"],
-      demoUrl: "#",
-      codeUrl: "#",
-      image: "/placeholder.svg?height=200&width=300",
-    },
-    {
-      title: t("projects.iot.title"),
-      description: t("projects.iot.description"),
-      technologies: ["Node.js", "Vue.js", "InfluxDB", "Docker"],
-      demoUrl: "#",
-      codeUrl: "#",
-      image: "/placeholder.svg?height=200&width=300",
-    },
+    // {
+    //   title: t("projects.analytics.title"),
+    //   description: t("projects.analytics.description"),
+    //   technologies: [".NET Core", "React", "D3.js", "SQL Server"],
+    //   demoUrl: "#",
+    //   codeUrl: "#",
+    //   image: "/placeholder.svg?height=200&width=300",
+    // },
+    // {
+    //   title: t("projects.iot.title"),
+    //   description: t("projects.iot.description"),
+    //   technologies: ["Node.js", "Vue.js", "InfluxDB", "Docker"],
+    //   demoUrl: "#",
+    //   codeUrl: "#",
+    //   image: "/placeholder.svg?height=200&width=300",
+    // },
   ]
   
   return (
@@ -58,11 +58,11 @@ export default function Projects() {
               key={project.title}
               className="group bg-cyber-gray/60 backdrop-blur-sm border border-cyber-purple/50 rounded-lg overflow-hidden shadow-cyber-card hover:shadow-neon-purple transition-all duration-300 hover:scale-105"
             >
-              <div className="relative overflow-hidden">
+              <div className="relative overflow-hidden h-48">
                 <img
                   src={project.image || "/placeholder.svg"}
                   alt={project.title}
-                  className="w-sm h-40 object-cover transition-transform duration-300 group-hover:scale-110"
+                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
               </div>

@@ -16,7 +16,7 @@ const languageColors: { [key: string]: string } = {
   Java: "cyber-red",
   PHP: "cyber-purple",
   Ruby: "cyber-red",
-  Go: "cyber-blue",
+  Dart: "cyber-blue",
   Rust: "cyber-orange",
   Swift: "cyber-orange",
   Kotlin: "cyber-purple",
