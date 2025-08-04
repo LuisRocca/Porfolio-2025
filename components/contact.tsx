@@ -226,7 +226,7 @@ export default function Contact() {
                       <SelectTrigger className="bg-cyber-darker/80 border-cyber-purple/60 text-white">
                         <SelectValue placeholder={t("contact.projectTypePlaceholder")} />
                       </SelectTrigger>
-                      <SelectContent className="bg-cyber-darker border-cyber-purple/60">
+                      <SelectContent className="bg-cyber-darker border-cyber-purple/60 text-white">
                         <SelectItem value="web-app">{t("contact.projectType.web-app")}</SelectItem>
                         <SelectItem value="mobile-app">{t("contact.projectType.mobile-app")}</SelectItem>
                         <SelectItem value="ecommerce">{t("contact.projectType.ecommerce")}</SelectItem>
@@ -244,7 +244,7 @@ export default function Contact() {
                       <SelectTrigger className="bg-cyber-darker/80 border-cyber-purple/60 text-white">
                         <SelectValue placeholder={t("contact.budgetPlaceholder")} />
                       </SelectTrigger>
-                      <SelectContent className="bg-cyber-darker border-cyber-purple/60">
+                      <SelectContent className="bg-cyber-darker border-cyber-purple/60 text-white">
                         <SelectItem value="under-5k">{t("contact.budget.under-5k")}</SelectItem>
                         <SelectItem value="5k-15k">{t("contact.budget.5k-15k")}</SelectItem>
                         <SelectItem value="15k-30k">{t("contact.budget.15k-30k")}</SelectItem>
@@ -263,7 +263,7 @@ export default function Contact() {
                     <SelectTrigger className="bg-cyber-darker/80 border-cyber-purple/60 text-white">
                       <SelectValue placeholder={t("contact.timelinePlaceholder")} />
                     </SelectTrigger>
-                    <SelectContent className="bg-cyber-darker border-cyber-purple/60">
+                    <SelectContent className="bg-cyber-darker border-cyber-purple/60 text-white">
                       <SelectItem value="asap">{t("contact.timeline.asap")}</SelectItem>
                       <SelectItem value="1-month">{t("contact.timeline.1-month")}</SelectItem>
                       <SelectItem value="2-3-months">{t("contact.timeline.2-3-months")}</SelectItem>

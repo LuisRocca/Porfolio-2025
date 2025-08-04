@@ -7,52 +7,52 @@ import { useLanguage } from "@/contexts/language-context"
           
 const skills = [
   { name: "Angular", level: 90, icon: 
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/angular/angular-original.svg" />
+  <img className="w-80" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/angular/angular-original.svg" />
   , color: "cyber-purple" },
   { name: "React", level: 85, icon: 
-    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" />
+    <img className="w-80" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" />
   , color: "cyber-blue" },
   { name: "Next.js", level: 85, icon: 
-    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg" />
+    <img className="w-80" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg" />
   , color: "cyber-blue" },
   { name: "TypeScript", level: 90, icon: 
-    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg" />
+    <img className="w-80" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg" />
   , color: "cyber-blue" },
   { name: "JavaScript", level: 88, icon: 
-    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" />
+    <img className="w-80" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" />
   , color: "cyber-lime" },
   { name: "Node.js", level: 85, icon: 
-    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original-wordmark.svg" />
+    <img className="w-80" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original-wordmark.svg" />
   , color: "cyber-lime" },
   { name: ".NET Core", level: 82, icon: 
-    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/dotnetcore/dotnetcore-original.svg" />
+    <img className="w-80" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/dotnetcore/dotnetcore-original.svg" />
   , color: "cyber-purple" },
   { name: "C#", level: 50, icon: 
-    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/csharp/csharp-original.svg" />
+    <img className="w-80" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/csharp/csharp-original.svg" />
   , color: "cyber-purple" },
   { name: "Docker", level: 75, icon: 
-    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-plain-wordmark.svg" />
+    <img className="w-80" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-plain-wordmark.svg" />
   , color: "cyber-blue" },
   { name: "MySQL", level: 85, icon: 
-    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original-wordmark.svg" />
+    <img className="w-80" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original-wordmark.svg" />
   , color: "cyber-lime" },
   { name: "PostgreSQL", level: 80, icon: 
-    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original-wordmark.svg" />
+    <img className="w-80" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original-wordmark.svg" />
   , color: "cyber-blue" },
   { name: "SQL", level: 80, icon: 
-    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azuresqldatabase/azuresqldatabase-original.svg" />
+    <img className="w-80" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azuresqldatabase/azuresqldatabase-original.svg" />
   , color: "cyber-blue" },
   { name: "MongoDB", level: 78, icon: 
-    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-plain-wordmark.svg" />
+    <img className="w-80" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-plain-wordmark.svg" />
   , color: "cyber-lime" },
   { name: "Express", level: 75, icon: 
-    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/express/express-original-wordmark.svg" />
+    <img className="w-80" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/express/express-original-wordmark.svg" />
   , color: "cyber-purple" },
   { name: "AWS", level: 75, icon: 
-    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" />
+    <img className="w-80" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" />
   , color: "cyber-purple" },
   { name: "Nest.js", level: 75, icon: 
-    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nestjs/nestjs-original.svg" />
+    <img className="w-80" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nestjs/nestjs-original.svg" />
   , color: "cyber-purple" },
 ]
 
@@ -131,7 +131,7 @@ export default function Skills() {
                 key={tool.name}
                 className="bg-cyber-gray/40 backdrop-blur-sm border border-cyber-lime/30 rounded-lg p-4 shadow-cyber-card hover:shadow-neon-lime transition-all duration-300 hover:scale-105 text-center"
               >
-                <div className="text-2xl mb-2">{tool.icon}</div>
+                <div className="mb-2 items-center">{tool.icon}</div>
                 <h4 className="text-sm font-semibold text-white">{tool.name}</h4>
               </div>
             ))}
