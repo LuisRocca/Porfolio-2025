@@ -1,36 +1,39 @@
 "use client"
 
-import { Github, Heart } from "lucide-react"
 import { useLanguage } from "@/contexts/language-context"
+import { LINKS } from "@/lib/profile"
 
 export default function Footer() {
   const { t } = useLanguage()
-  
+
   return (
-    <footer className="py-12 px-6 border-t border-cyber-purple/30 relative bg-cyber-darker">
-      <div className="max-w-6xl mx-auto">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="text-center md:text-left">
-            <p className="text-gray-300">© 2024 Luis Miguel Alfonzo Roca. {t("footer.rights")}</p>
-          </div>
+    <footer className="border-t border-border px-6 py-10">
+      <div className="mx-auto flex max-w-content flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <p className="text-xs text-muted-foreground">
+          © {new Date().getFullYear()} Luis Miguel Alfonzo Roca. {t("footer.rights")}
+        </p>
 
-          <div className="flex items-center gap-6">
-            <a
-              href="#"
-              className="flex items-center gap-2 text-cyber-blue hover:text-cyber-blue-glow transition-colors"
-            >
-              <Github className="h-5 w-5" />
-              <span>{t("footer.github")}</span>
-            </a>
-          </div>
-        </div>
-
-        <div className="mt-8 pt-8 border-t border-cyber-purple/20 text-center">
-          <p className="text-sm text-gray-400 flex items-center justify-center gap-2">
-            {t("footer.madeWith")} <Heart className="h-4 w-4 text-cyber-purple animate-pulse" /> {t("footer.code")}
-            <span className="text-cyber-lime opacity-60">• {t("footer.powered")}</span>
-          </p>
-        </div>
+        <nav aria-label={t("footer.social")} className="flex items-center gap-6 text-xs">
+          <a
+            href={LINKS.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="link-underline"
+          >
+            GitHub
+          </a>
+          <a
+            href={LINKS.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="link-underline"
+          >
+            LinkedIn
+          </a>
+          <a href={`mailto:${LINKS.email}`} className="link-underline">
+            Email
+          </a>
+        </nav>
       </div>
     </footer>
   )

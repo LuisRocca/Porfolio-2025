@@ -2,81 +2,88 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-}
+/*
+  Sistema de color: monocromo + un único acento violeta.
 
+  El acento tiene dos valores porque un mismo violeta no puede cumplir
+  contraste AA de texto sobre el fondo claro y el oscuro a la vez: en claro se
+  oscurece y en oscuro se aclara. --brand-solid es sólo para superficies
+  (el botón), con texto blanco encima.
+*/
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
+    --background: 0 0% 98%;
+    --foreground: 0 0% 4%;
+
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
+    --card-foreground: 0 0% 4%;
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
+    --popover-foreground: 0 0% 4%;
+
     --primary: 0 0% 9%;
     --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 96.1%;
+    --secondary: 0 0% 96%;
     --secondary-foreground: 0 0% 9%;
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
-    --accent: 0 0% 96.1%;
+
+    --muted: 0 0% 96%;
+    --muted-foreground: 240 4% 42%;
+    --accent: 0 0% 94%;
     --accent-foreground: 0 0% 9%;
-    --destructive: 0 84.2% 60.2%;
+
+    /* Violeta desaturado, de la familia del #7C66A4 del fondo del hero.
+       No es el #a855f7 neón anterior: esa saturación es la que hacía que
+       el sitio leyera como plantilla. 5.9:1 sobre el fondo claro. */
+    --brand: 262 48% 45%;
+    --brand-solid: 262 58% 50%;
+    --brand-solid-foreground: 0 0% 100%;
+
+    --destructive: 0 72% 42%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
-    --ring: 0 0% 3.9%;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
-    --radius: 0.5rem;
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+
+    --border: 0 0% 90%;
+    --border-strong: 0 0% 80%;
+    --input: 0 0% 88%;
+    --ring: 262 58% 50%;
+
+    --radius: 0.75rem;
   }
+
   .dark {
-    --background: 0 0% 3.9%;
+    /* No es negro puro: sobre #000 los niveles de elevación no se pueden
+       separar y las superficies se leen todas iguales. Los niveles están
+       más espaciados que en claro porque sin luz ambiente hace falta más
+       diferencia entre ellos para percibir la misma jerarquía. */
+    --background: 0 0% 7%;
     --foreground: 0 0% 98%;
-    --card: 0 0% 3.9%;
+
+    --card: 0 0% 11%;
     --card-foreground: 0 0% 98%;
-    --popover: 0 0% 3.9%;
+    --popover: 0 0% 11%;
     --popover-foreground: 0 0% 98%;
+
     --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
-    --secondary: 0 0% 14.9%;
+    --primary-foreground: 0 0% 7%;
+    --secondary: 0 0% 15%;
     --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
-    --accent: 0 0% 14.9%;
+
+    --muted: 0 0% 15%;
+    --muted-foreground: 240 5% 68%;
+    --accent: 0 0% 17%;
     --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
-    --ring: 0 0% 83.1%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Lavanda sobre el fondo oscuro: 8.2:1. El mismo tono del hero, aclarado, porque
+       el violeta oscuro del tema claro sobre el fondo oscuro sería ilegible. */
+    --brand: 258 78% 76%;
+    --brand-solid: 262 58% 54%;
+    --brand-solid-foreground: 0 0% 100%;
+
+    --destructive: 0 72% 58%;
+    --destructive-foreground: 0 0% 7%;
+
+    --border: 0 0% 18%;
+    --border-strong: 0 0% 30%;
+    --input: 0 0% 20%;
+    --ring: 262 58% 54%;
   }
 }
 
@@ -84,7 +91,249 @@
   * {
     @apply border-border;
   }
+
+  html {
+    scroll-behavior: smooth;
+    /* Compensa la navbar fija al saltar a una sección con #ancla */
+    scroll-padding-top: 5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "cv11", "ss01";
+    font-variation-settings: "opsz" 32;
+  }
+
+  ::selection {
+    background-color: hsl(var(--brand-solid) / 0.25);
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background rounded-sm;
+  }
+
+  h1, h2, h3, h4 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+@layer components {
+  /* Etiqueta de sección: mono, versalita, discreta. Sustituye a los
+     títulos gigantes centrados con barra de color debajo. */
+  .eyebrow {
+    @apply font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground;
+  }
+
+  .section-title {
+    @apply text-2xl md:text-3xl font-medium tracking-tight text-foreground;
+  }
+
+  .surface {
+    @apply bg-card border border-border rounded-xl;
+  }
+
+  /*
+    Dos atmósferas, con papeles distintos.
+
+    - Hero -> "Deep Smoke": banner oscuro SIEMPRE, en los dos temas. Su base
+      es un degradado opaco, así que no se puede aclarar sin perder el efecto;
+      en vez de traducirlo se invierte el texto del hero con .on-dark.
+    - Impacto y Contacto -> "Midnight Smoke": órbitas y haz, esta vez sí
+      dependiente del tema, porque esas secciones sí siguen el fondo de página.
+
+    Que el hero tenga un tratamiento distinto es lo que permite repetir el
+    segundo dos veces sin que se lea como papel pintado: pasa a ser el
+    lenguaje de las secciones secundarias.
+  */
+  .atmosphere {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  /* Grano, encima de todas las capas. Rompe el banding de los degradados
+     grandes, que en pantallas de 8 bits se ve como escalones. */
+  .atmosphere::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .dark .atmosphere::after {
+    opacity: 0.055;
+  }
+
+  /* ================= Hero: "Deep Smoke" =================
+     Capas, de arriba abajo: partículas de polvo -> halftone -> resplandor
+     -> base. La viñeta va en ::before para quedar por encima de todas, y el
+     grano en ::after por encima de la viñeta.
+     El halftone es la única capa con `background-size` propio: por eso la
+     lista de tamaños tiene que ir emparejada capa a capa. */
+  .atmosphere--hero,
+  .dark .atmosphere--hero {
+    background-image:
+      /* polvo: 16 motas de 1-3px, posiciones fijas */
+      radial-gradient(circle at 78% 81%, rgba(220,218,221,0.18) 0, transparent 1px),
+      radial-gradient(circle at 46% 29%, rgba(255,255,255,0.17) 0, transparent 2px),
+      radial-gradient(circle at 93% 21%, rgba(255,255,255,0.39) 0, transparent 1px),
+      radial-gradient(circle at 83% 47%, rgba(255,255,255,0.31) 0, transparent 3px),
+      radial-gradient(circle at 19% 64%, rgba(220,218,221,0.36) 0, transparent 2px),
+      radial-gradient(circle at 46% 53%, rgba(255,255,255,0.21) 0, transparent 2px),
+      radial-gradient(circle at 14% 26%, rgba(255,255,255,0.13) 0, transparent 3px),
+      radial-gradient(circle at 86% 29%, rgba(255,255,255,0.26) 0, transparent 2px),
+      radial-gradient(circle at 38% 79%, rgba(255,255,255,0.21) 0, transparent 2px),
+      radial-gradient(circle at 22% 43%, rgba(220,218,221,0.20) 0, transparent 3px),
+      radial-gradient(circle at 80% 11%, rgba(255,255,255,0.33) 0, transparent 2px),
+      radial-gradient(circle at 91% 62%, rgba(220,218,221,0.11) 0, transparent 2px),
+      radial-gradient(circle at 23% 83%, rgba(220,218,221,0.40) 0, transparent 1px),
+      radial-gradient(circle at 6% 79%, rgba(255,255,255,0.21) 0, transparent 3px),
+      radial-gradient(circle at 72% 17%, rgba(255,255,255,0.28) 0, transparent 2px),
+      radial-gradient(circle at 65% 85%, rgba(255,255,255,0.39) 0, transparent 3px),
+      /* halftone */
+      radial-gradient(circle at 25% 25%, rgba(139,103,162,0.36) 1px, transparent 1px),
+      radial-gradient(circle at 75% 75%, rgba(220,218,221,0.22) 1px, transparent 1px),
+      /* resplandor */
+      radial-gradient(ellipse 78% 62% at 60% 4%, rgba(255,255,255,0.26), transparent 66%),
+      radial-gradient(ellipse 86% 72% at 66% 34%, rgba(139,103,162,0.30), transparent 68%),
+      /* base: la luz nace arriba a la derecha y muere abajo a la izquierda,
+         que es justo donde vive el texto */
+      linear-gradient(215deg, #f0eff1 0%, #b3acb7 21%, #837a8a 44%, #524b57 67%, #1b191d 86%, #070708 100%);
+    background-size:
+      auto, auto, auto, auto, auto, auto, auto, auto,
+      auto, auto, auto, auto, auto, auto, auto, auto,
+      11px 11px, 11px 11px,
+      auto, auto,
+      auto;
+  }
+
+  /* Viñeta + telón lateral. El telón de la izquierda no es decorativo: la
+     base llega a #a9a2ad por arriba, y sin él el texto blanco del hero
+     quedaría por debajo de 4.5:1 en la parte alta de la columna. */
+  .atmosphere--hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      /* Telón superior: la franja más luminosa del banner coincide con la
+         barra de navegación, y sin esto sus enlaces bajan de 3:1. */
+      linear-gradient(to bottom, rgba(0,0,0,0.66) 0%, rgba(0,0,0,0.34) 7%, rgba(0,0,0,0.10) 14%, transparent 23%),
+      linear-gradient(to right, rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.34) 34%, rgba(0,0,0,0.06) 58%, transparent 72%),
+      radial-gradient(circle at 56% 42%, transparent 32%, rgba(0,0,0,0.10) 64%, rgba(0,0,0,0.70) 100%),
+      linear-gradient(to bottom, transparent 46%, rgba(0,0,0,0.86) 100%);
+  }
+
+  .atmosphere--hero::after {
+    mix-blend-mode: soft-light;
+    opacity: 0.18;
+    background-size: 180px 180px;
+  }
+
+  /* ========== Secundarias: "Midnight Smoke" ==========
+     Órbitas y haz, atenuados respecto de cuando vivían en el hero, y con
+     máscara de entrada y salida para que no choquen con las secciones
+     limpias de al lado. */
+  .atmosphere--quiet {
+    background:
+      radial-gradient(118% 135% at 48% 44%, transparent 36%, hsl(0 0% 0% / 0.10) 72%, hsl(0 0% 0% / 0.20) 100%),
+      repeating-radial-gradient(circle at 6% 30%, transparent 0 58px, hsl(262 28% 52% / 0.028) 58px 59px, transparent 59px 118px),
+      linear-gradient(104deg, transparent 54%, hsl(262 30% 62% / 0.07) 58%, hsl(262 34% 70% / 0.12) 60%, hsl(262 30% 62% / 0.06) 62%, transparent 67%),
+      radial-gradient(70% 88% at 78% 40%, hsl(262 34% 60% / 0.14), transparent 70%);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 20%, #000 76%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, #000 20%, #000 76%, transparent 100%);
+  }
+
+  .dark .atmosphere--quiet {
+    background:
+      radial-gradient(118% 135% at 48% 44%, transparent 30%, hsl(0 0% 0% / 0.24) 70%, hsl(0 0% 0% / 0.48) 100%),
+      repeating-radial-gradient(circle at 6% 30%, transparent 0 58px, hsl(258 26% 78% / 0.032) 58px 59px, transparent 59px 118px),
+      linear-gradient(104deg, transparent 53%, hsl(258 24% 80% / 0.06) 57.5%, hsl(258 26% 86% / 0.13) 60%, hsl(258 24% 80% / 0.05) 62.5%, transparent 68%),
+      radial-gradient(72% 92% at 78% 40%, hsl(262 22% 60% / 0.30), transparent 72%);
+  }
+
+  /*
+    Invierte los tokens de color en un trozo de página que siempre es oscuro,
+    sea cual sea el tema. Todo lo que ya usa text-foreground, border-border o
+    text-muted-foreground se adapta solo: no hay que tocar clase por clase.
+  */
+  .on-dark {
+    --foreground: 0 0% 98%;
+    --muted-foreground: 240 6% 76%;
+    --card: 0 0% 11%;
+    --card-foreground: 0 0% 98%;
+    --border: 0 0% 26%;
+    --border-strong: 0 0% 42%;
+    --brand: 258 78% 78%;
+    --brand-solid: 262 58% 56%;
+    --brand-solid-foreground: 0 0% 100%;
+    --ring: 262 58% 62%;
+    color: hsl(var(--foreground));
+  }
+
+  /* Translucidez de la barra: el `saturate` es lo que evita que los colores
+     detrás del desenfoque se vean lavados. Sin él, un blur sobre fondo claro
+     apaga todo lo que pasa por debajo. */
+  .vibrancy {
+    background-color: hsl(var(--background) / 0.72);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    backdrop-filter: saturate(180%) blur(20px);
+  }
+
+  /* Enlace de texto: subrayado que aparece en hover, sin cambio de tamaño. */
+  .link-underline {
+    @apply text-foreground decoration-brand/60 underline-offset-4 transition-colors duration-150 hover:text-brand hover:underline;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Aparición al hacer scroll. El estado inicial vive aquí y no en JS
+     para que no haya parpadeo antes de la hidratación. */
+  .reveal {
+    opacity: 0;
+    transform: translateY(12px);
+    transition:
+      opacity 600ms cubic-bezier(0.16, 1, 0.3, 1),
+      transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+
+  .reveal-visible {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* El estado oculto se anula sin JavaScript desde el <noscript> de app/layout.tsx,
+   y con el fallback por tiempo de hooks/use-reveal.ts si el observer no entrega. */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

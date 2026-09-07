@@ -1,222 +1,193 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Button } from "@/components/ui/button"
-import { Menu, X, Download, Github, Linkedin, Globe } from "lucide-react"
+import { Menu, X, ArrowDownToLine } from "lucide-react"
 import { useLanguage } from "@/contexts/language-context"
+import ThemeToggle from "@/components/theme-toggle"
+import { CV_PATH } from "@/lib/profile"
 
+const sections = ["about", "experience", "stack", "ai", "work", "contact"] as const
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const [activeSection, setActiveSection] = useState("hero")
+  const [activeSection, setActiveSection] = useState<string>("")
   const { language, setLanguage, t } = useLanguage()
 
   const navItems = [
-    { name: t("nav.home"), href: "#hero" },
-    { name: t("nav.about"), href: "#about" },
-    { name: t("nav.experience"), href: "#experience" },
-    { name: t("nav.skills"), href: "#skills" },
-    { name: t("nav.projects"), href: "#projects" },
-    { name: t("nav.contact"), href: "#contact" },
+    { id: "about", name: t("nav.about") },
+    { id: "experience", name: t("nav.experience") },
+    { id: "stack", name: t("nav.skills") },
+    { id: "ai", name: t("nav.ai") },
+    { id: "work", name: t("nav.projects") },
+    { id: "contact", name: t("nav.contact") },
   ]
 
-  const handleDownloadCV = () => {
-    const link = document.createElement('a')
-    link.href = language === "es" ? "/CvLuisMiguelAlfonzoRocaDevES.pdf" : "/CvLuisMiguelAlfonzoRocaDevIN.pdf"
-    link.download = language === "es" ? "/CvLuisMiguelAlfonzoRocaDevES.pdf" : "/CvLuisMiguelAlfonzoRocaDevIN.pdf"
-    document.body.appendChild(link)
-    link.click()
-    document.body.removeChild(link)
-  }
-
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50)
-
-      // Update active section based on scroll position
-      const sections = navItems.map((item) => item.href.substring(1))
-      const currentSection = sections.find((section) => {
-        const element = document.getElementById(section)
-        if (element) {
-          const rect = element.getBoundingClientRect()
-          return rect.top <= 100 && rect.bottom >= 100
-        }
-        return false
-      })
-
-      if (currentSection) {
-        setActiveSection(currentSection)
-      }
-    }
-
-    window.addEventListener("scroll", handleScroll)
+    const handleScroll = () => setIsScrolled(window.scrollY > 24)
+    handleScroll()
+    window.addEventListener("scroll", handleScroll, { passive: true })
     return () => window.removeEventListener("scroll", handleScroll)
-  }, []) // Removed navItems from the dependency array
+  }, [])
 
-  const handleNavClick = (href: string) => {
-    const element = document.querySelector(href)
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" })
+  // Sección activa por IntersectionObserver en vez de leer getBoundingClientRect
+  // en cada scroll: el navegador no recalcula layout en cada frame.
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0]
+
+        if (visible) setActiveSection(visible.target.id)
+      },
+      { rootMargin: "-20% 0px -70% 0px", threshold: [0, 0.25, 0.5] },
+    )
+
+    sections.forEach((id) => {
+      const element = document.getElementById(id)
+      if (element) observer.observe(element)
+    })
+
+    return () => observer.disconnect()
+  }, [])
+
+  // Bloquea el scroll del fondo mientras el menú móvil está abierto.
+  useEffect(() => {
+    document.body.style.overflow = isMobileMenuOpen ? "hidden" : ""
+    return () => {
+      document.body.style.overflow = ""
     }
-    setIsMobileMenuOpen(false)
-  }
+  }, [isMobileMenuOpen])
 
-  const toggleLanguage = () => {
-    setLanguage(language === "es" ? "en" : "es")
-  }
+  const toggleLanguage = () => setLanguage(language === "es" ? "en" : "es")
 
+  // Sin scroll la barra flota sobre el banner oscuro del hero y hereda sus
+  // tokens; al hacer scroll pasa a fondo translúcido y vuelve al tema.
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled ? "bg-black/95 backdrop-blur-md border-b border-cyber-purple/30 shadow-cyber-glow" : "bg-transparent"
+    <header
+      className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
+        isScrolled ? "vibrancy border-b border-border" : "border-b border-transparent"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo with animation */}
-          <div className="flex items-center">
-            <div className="text-2xl font-black bg-gradient-to-r from-cyber-purple to-cyber-lime bg-clip-text text-transparent hover:scale-110 transition-transform duration-300 cursor-pointer">
-              LMA
-            </div>
-          </div>
+      {/* `on-dark` va en el nav y no en el header: el desplegable móvil es
+          hermano del nav y sí sigue el tema de la página, así que heredarlo
+          le dejaría texto claro sobre fondo claro. */}
+      <nav
+        aria-label={t("nav.primary")}
+        className={`mx-auto flex h-16 max-w-content items-center justify-between px-6 ${
+          isScrolled ? "" : "on-dark"
+        }`}
+      >
+        <a
+          href="#hero"
+          className="font-mono text-sm font-medium tracking-tight text-foreground transition-colors duration-150 hover:text-brand"
+        >
+          LMA
+        </a>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            {navItems.map((item) => (
-              <button
-                key={item.name}
-                onClick={() => handleNavClick(item.href)}
-                className={`text-white hover:text-cyber-lime transition-all duration-300 font-medium relative group ${
-                  activeSection === item.href.substring(1) ? "text-cyber-lime" : ""
+        <ul className="hidden items-center gap-8 md:flex">
+          {navItems.map((item) => (
+            <li key={item.id}>
+              <a
+                href={`#${item.id}`}
+                aria-current={activeSection === item.id ? "true" : undefined}
+                className={`relative py-1 text-sm transition-colors duration-150 hover:text-foreground ${
+                  activeSection === item.id ? "text-foreground" : "text-muted-foreground"
                 }`}
               >
                 {item.name}
                 <span
-                  className={`absolute -bottom-1 left-0 h-0.5 bg-cyber-lime transition-all duration-300 ${
-                    activeSection === item.href.substring(1) ? "w-full" : "w-0 group-hover:w-full"
+                  className={`absolute -bottom-0.5 left-0 h-px bg-brand transition-all duration-300 ease-out ${
+                    activeSection === item.id ? "w-full" : "w-0"
                   }`}
-                ></span>
-              </button>
-            ))}
-          </div>
+                />
+              </a>
+            </li>
+          ))}
+        </ul>
 
-          {/* Desktop Actions */}
-          <div className="hidden md:flex items-center space-x-4">
-            {/* Language Toggle */}
-            <Button
-              size="sm"
-              variant="ghost"
-              onClick={toggleLanguage}
-              className="text-cyber-lime hover:text-cyber-lime-glow hover:bg-cyber-lime/10 hover:scale-110 transition-all duration-300 flex items-center gap-2"
-            >
-              <Globe className="h-4 w-4" />
-              <span className="text-xs font-bold">{language.toUpperCase()}</span>
-            </Button>
+        <div className="hidden items-center gap-2 md:flex">
+          <button
+            type="button"
+            onClick={toggleLanguage}
+            aria-label={t("nav.switchLanguage")}
+            className="inline-flex h-9 items-center justify-center rounded-md border border-border px-3 font-mono text-xs text-muted-foreground transition-colors duration-150 hover:border-border-strong hover:text-foreground"
+          >
+            {language === "es" ? "EN" : "ES"}
+          </button>
 
-            <Button
-              size="sm"
-              variant="ghost"
-              className="text-cyber-blue hover:text-cyber-blue-glow hover:bg-cyber-blue/10 hover:scale-110 transition-all duration-300"
-              onClick={() => window.open("https://github.com/LuisRocca", "_blank")}
-            >
-              <Github className="h-4 w-4" />
-            </Button>
-            <Button
-              size="sm"
-              variant="ghost"
-              className="text-cyber-blue hover:text-cyber-blue-glow hover:bg-cyber-blue/10 hover:scale-110 transition-all duration-300"
-              onClick={() =>
-                window.open("https://www.linkedin.com/in/luis-miguel-alfonzo-roca-software-enginer/", "_blank")
-              }
-            >
-              <Linkedin className="h-4 w-4" />
-            </Button>
-            <Button
-              size="sm"
-              className="bg-cyber-purple hover:bg-cyber-purple-glow text-white shadow-neon-purple hover:shadow-neon-purple transition-all duration-300 hover:scale-110"
-              onClick={handleDownloadCV}
-            >
-              <Download className="h-4 w-4 mr-2" />
-              {t("nav.downloadCV")}
-            </Button>
-          </div>
+          <ThemeToggle label={t("nav.switchTheme")} />
 
-          {/* Mobile menu button */}
-          <div className="md:hidden">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="text-white hover:text-cyber-lime hover:scale-110 transition-all duration-300"
-            >
-              {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-            </Button>
-          </div>
+          {/* Secundario a propósito: la acción primaria en violeta vive en el
+              hero y en contacto, para que no compitan dos CTA idénticos. */}
+          <a
+            href={CV_PATH[language]}
+            download
+            className="inline-flex h-9 items-center gap-2 rounded-md border border-border px-3.5 text-sm text-foreground transition-colors duration-150 hover:border-border-strong"
+          >
+            <ArrowDownToLine className="h-4 w-4" />
+            {t("nav.downloadCV")}
+          </a>
         </div>
 
-        {/* Mobile Navigation */}
-        {isMobileMenuOpen && (
-          <div className="md:hidden absolute top-16 left-0 right-0 bg-black/98 backdrop-blur-md border-b border-cyber-purple/30 shadow-cyber-glow animate-in slide-in-from-top duration-300">
-            <div className="px-6 py-4 space-y-4">
-              {navItems.map((item) => (
-                <button
-                  key={item.name}
-                  onClick={() => handleNavClick(item.href)}
-                  className={`block w-full text-left text-white hover:text-cyber-lime transition-colors duration-200 font-medium py-2 ${
-                    activeSection === item.href.substring(1) ? "text-cyber-lime" : ""
+        <div className="flex items-center gap-2 md:hidden">
+          <ThemeToggle label={t("nav.switchTheme")} />
+          <button
+            type="button"
+            onClick={() => setIsMobileMenuOpen((open) => !open)}
+            aria-expanded={isMobileMenuOpen}
+            aria-controls="mobile-menu"
+            aria-label={t("nav.menu")}
+            className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-border text-foreground transition-colors duration-150 hover:border-border-strong"
+          >
+            {isMobileMenuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+          </button>
+        </div>
+      </nav>
+
+      {isMobileMenuOpen && (
+        <div
+          id="mobile-menu"
+          className="border-t border-border bg-background md:hidden"
+        >
+          <ul className="px-6 py-2">
+            {navItems.map((item) => (
+              <li key={item.id} className="border-b border-border last:border-0">
+                <a
+                  href={`#${item.id}`}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={`block py-3.5 text-sm transition-colors duration-150 ${
+                    activeSection === item.id ? "text-brand" : "text-muted-foreground"
                   }`}
                 >
                   {item.name}
-                </button>
-              ))}
-              <div className="pt-4 border-t border-cyber-purple/20 flex flex-col space-y-3">
-                {/* Mobile Language Toggle */}
-                <Button
-                  size="sm"
-                  variant="ghost"
-                  onClick={toggleLanguage}
-                  className="text-cyber-lime hover:text-cyber-lime-glow justify-start flex items-center gap-2"
-                >
-                  <Globe className="h-4 w-4" />
-                  <span>{language === "es" ? "English" : "Español"}</span>
-                </Button>
+                </a>
+              </li>
+            ))}
+          </ul>
 
-                
-                <Button
-                  size="sm"
-                  className="bg-cyber-purple hover:bg-cyber-purple-glow text-white shadow-neon-purple justify-start"
-                  onClick={handleDownloadCV}
-                >
-                  <Download className="h-4 w-4 mr-2" />
-                  {t("nav.downloadCV")}
-                </Button>
-             
-                <div className="flex space-x-3">
-                  <Button
-                    size="sm"
-                    variant="ghost"
-                    className="text-cyber-blue hover:text-cyber-blue-glow"
-                    onClick={() => window.open("https://github.com/LuisRocca", "_blank")}
-                  >
-                    <Github className="h-4 w-4" />
-                  </Button>
-                  <Button
-                    size="sm"
-                    variant="ghost"
-                    className="text-cyber-blue hover:text-cyber-blue-glow"
-                    onClick={() =>
-                      window.open("https://www.linkedin.com/in/luis-miguel-alfonzo-roca-software-enginer/", "_blank")
-                    }
-                  >
-                    <Linkedin className="h-4 w-4" />
-                  </Button>
-                </div>
-              </div>
-            </div>
+          <div className="flex items-center gap-2 px-6 pb-6 pt-2">
+            <a
+              href={CV_PATH[language]}
+              download
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="inline-flex h-10 flex-1 items-center justify-center gap-2 rounded-md bg-brand-solid px-4 text-sm font-medium text-brand-solid-foreground"
+            >
+              <ArrowDownToLine className="h-4 w-4" />
+              {t("nav.downloadCV")}
+            </a>
+            <button
+              type="button"
+              onClick={toggleLanguage}
+              aria-label={t("nav.switchLanguage")}
+              className="inline-flex h-10 items-center justify-center rounded-md border border-border px-4 font-mono text-xs text-muted-foreground"
+            >
+              {language === "es" ? "EN" : "ES"}
+            </button>
           </div>
-        )}
-      </div>
-    </nav>
+        </div>
+      )}
+    </header>
   )
 }

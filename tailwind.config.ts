@@ -9,16 +9,10 @@ const config: Config = {
     "*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    container: {
-      center: true,
-      padding: "2rem",
-      screens: {
-        "2xl": "1400px",
-      },
-    },
     extend: {
       colors: {
         border: "hsl(var(--border))",
+        "border-strong": "hsl(var(--border-strong))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
@@ -51,49 +45,28 @@ const config: Config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        cyber: {
-          dark: "#0f0f0f",
-          darker: "#0a0a0a",
-          darkest: "#050505",
-          gray: "#1a1a1a",
-          "gray-light": "#2d2d2d",
-          "gray-medium": "#404040",
-          purple: "#a855f7",
-          "purple-glow": "#c084fc",
-          "purple-dark": "#7c3aed",
-          lime: "#84cc16",
-          "lime-glow": "#a3e635",
-          "lime-dark": "#65a30d",
-          blue: "#3b82f6",
-          "blue-glow": "#60a5fa",
-          "blue-dark": "#2563eb",
-          accent: "#f59e0b",
+        // Único acento del sitio. `brand` para texto e iconos (cambia de tono
+        // por tema para cumplir contraste), `brand-solid` para superficies.
+        brand: {
+          DEFAULT: "hsl(var(--brand))",
+          solid: "hsl(var(--brand-solid))",
+          "solid-foreground": "hsl(var(--brand-solid-foreground))",
         },
       },
       borderRadius: {
         lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+        md: "calc(var(--radius) - 4px)",
+        sm: "calc(var(--radius) - 8px)",
       },
       fontFamily: {
-        cyber: ["Inter", "system-ui", "sans-serif"],
+        sans: ["var(--font-geist-sans)", "system-ui", "sans-serif"],
+        mono: ["var(--font-geist-mono)", "ui-monospace", "monospace"],
       },
-      boxShadow: {
-        "neon-purple": "0 0 30px rgba(168, 85, 247, 0.4)",
-        "neon-lime": "0 0 30px rgba(132, 204, 22, 0.4)",
-        "neon-blue": "0 0 30px rgba(59, 130, 246, 0.4)",
-        "cyber-card": "0 8px 32px rgba(0, 0, 0, 0.9)",
-        "cyber-glow": "0 0 50px rgba(168, 85, 247, 0.2)",
+      maxWidth: {
+        content: "64rem",
       },
-      animation: {
-        "pulse-slow": "pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite",
-        glow: "glow 2s ease-in-out infinite alternate",
-      },
-      keyframes: {
-        glow: {
-          "0%": { boxShadow: "0 0 20px rgba(168, 85, 247, 0.5)" },
-          "100%": { boxShadow: "0 0 30px rgba(168, 85, 247, 0.8)" },
-        },
+      transitionTimingFunction: {
+        out: "cubic-bezier(0.16, 1, 0.3, 1)",
       },
     },
   },

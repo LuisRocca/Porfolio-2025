@@ -8,69 +8,64 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Checkbox } from "@/components/ui/checkbox"
-import { Mail, Linkedin, Phone, MapPin, Send, Clock, CheckCircle, AlertCircle } from "lucide-react"
+import { AlertCircle, ArrowUpRight, CheckCircle2, Loader2 } from "lucide-react"
 import { useLanguage } from "@/contexts/language-context"
+import { useReveal } from "@/hooks/use-reveal"
+import { LINKS } from "@/lib/profile"
+
+const emptyForm = {
+  name: "",
+  email: "",
+  phone: "",
+  company: "",
+  projectType: "",
+  budget: "",
+  timeline: "",
+  message: "",
+  newsletter: false,
+}
+
+const projectTypes = [
+  "web-app",
+  "mobile-app",
+  "ecommerce",
+  "dashboard",
+  "api",
+  "maintenance",
+  "consulting",
+  "other",
+]
+
+const budgets = ["under-5k", "5k-15k", "15k-30k", "30k-50k", "over-50k", "discuss"]
+
+const timelines = ["asap", "1-month", "2-3-months", "3-6-months", "flexible"]
 
 export default function Contact() {
   const { t } = useLanguage()
-  
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    company: "",
-    projectType: "",
-    budget: "",
-    timeline: "",
-    message: "",
-    newsletter: false,
-  })
-
+  const { ref, isVisible } = useReveal<HTMLElement>()
+  const [formData, setFormData] = useState(emptyForm)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle")
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
+    setSubmitStatus("idle")
 
     try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       })
 
-      if (response.ok) {
-        setSubmitStatus("success")
-        // Reset form after success
-        setTimeout(() => {
-          setSubmitStatus("idle")
-          setFormData({
-            name: "",
-            email: "",
-            phone: "",
-            company: "",
-            projectType: "",
-            budget: "",
-            timeline: "",
-            message: "",
-            newsletter: false,
-          })
-        }, 3000)
-      } else {
-        setSubmitStatus("error")
-        setTimeout(() => {
-          setSubmitStatus("idle")
-        }, 3000)
-      }
+      if (!response.ok) throw new Error(`Request failed: ${response.status}`)
+
+      setSubmitStatus("success")
+      setFormData(emptyForm)
     } catch (error) {
-      console.error('Error:', error)
+      console.error("No se pudo enviar el mensaje:", error)
       setSubmitStatus("error")
-      setTimeout(() => {
-        setSubmitStatus("idle")
-      }, 3000)
     } finally {
       setIsSubmitting(false)
     }
@@ -81,258 +76,257 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="py-20 px-6 relative bg-black">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-6xl font-black mb-4 text-cyber-blue">{t("contact.title")}</h2>
-          <div className="h-1 w-24 bg-cyber-lime mx-auto" />
-          <p className="text-xl text-gray-300 mt-6 max-w-2xl mx-auto">
-            {t("contact.subtitle")}
-          </p>
-        </div>
+    <section
+      ref={ref}
+      id="contact"
+      className="relative isolate scroll-mt-20 overflow-hidden border-t border-border px-6 py-20 md:py-28"
+    >
+      <div aria-hidden className="atmosphere atmosphere--quiet" />
 
-        <div className="grid lg:grid-cols-3 gap-12">
-          {/* Contact Info */}
-          <div className="lg:col-span-1 space-y-6">
-            <div className="bg-cyber-gray/60 backdrop-blur-sm border border-cyber-lime/50 rounded-lg p-6 shadow-cyber-card hover:shadow-neon-lime transition-all duration-300">
-              <div className="flex items-center gap-4 mb-4">
-                <div className="w-12 h-12 rounded-full bg-cyber-lime/20 flex items-center justify-center">
-                  <Mail className="h-6 w-6 text-cyber-lime" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-white">Email</h4>
-                  <p className="text-cyber-lime">luis.rocca96@gmail.com</p>
-                </div>
+      <div className={`relative mx-auto max-w-content reveal ${isVisible ? "reveal-visible" : ""}`}>
+        <p className="eyebrow">{t("contact.eyebrow")}</p>
+        <h2 className="section-title mt-3">{t("contact.title")}</h2>
+        <p className="mt-4 max-w-xl text-base leading-relaxed text-muted-foreground">
+          {t("contact.subtitle")}
+        </p>
+
+        <div className="mt-12 grid gap-12 lg:grid-cols-5 lg:gap-16">
+          <div className="lg:col-span-2">
+            <dl className="space-y-5 text-sm">
+              <div className="border-b border-border pb-5">
+                <dt className="text-muted-foreground">Email</dt>
+                <dd className="mt-1">
+                  <a href={`mailto:${LINKS.email}`} className="link-underline">
+                    {LINKS.email}
+                  </a>
+                </dd>
               </div>
-            </div>
 
-            <div className="bg-cyber-gray/60 backdrop-blur-sm border border-cyber-blue/50 rounded-lg p-6 shadow-cyber-card hover:shadow-neon-blue transition-all duration-300">
-              <div className="flex items-center gap-4 mb-4">
-                <div className="w-12 h-12 rounded-full bg-cyber-blue/20 flex items-center justify-center">
-                  <Phone className="h-6 w-6 text-cyber-blue" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-white">{t("contact.phone")}</h4>
-                  <p className="text-cyber-blue">+57 319 711 07 18</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-cyber-gray/60 backdrop-blur-sm border border-cyber-purple/50 rounded-lg p-6 shadow-cyber-card hover:shadow-neon-purple transition-all duration-300">
-              <div className="flex items-center gap-4 mb-4">
-                <div className="w-12 h-12 rounded-full bg-cyber-purple/20 flex items-center justify-center">
-                  <MapPin className="h-6 w-6 text-cyber-purple" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-white">Ubicación</h4>
-                  <p className="text-cyber-purple">Bogotá, Colombia</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-cyber-gray/60 backdrop-blur-sm border border-cyber-lime/50 rounded-lg p-6 shadow-cyber-card hover:shadow-neon-lime transition-all duration-300">
-              <div className="flex items-center gap-4 mb-4">
-                <div className="w-12 h-12 rounded-full bg-cyber-lime/20 flex items-center justify-center">
-                  <Linkedin className="h-6 w-6 text-cyber-lime" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-white">LinkedIn</h4>
+              <div className="border-b border-border pb-5">
+                <dt className="text-muted-foreground">LinkedIn</dt>
+                <dd className="mt-1">
                   <a
-                    href="https://www.linkedin.com/in/luis-miguel-alfonzo-roca-software-enginer/"
+                    href={LINKS.linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-cyber-lime hover:text-cyber-lime-glow transition-colors text-sm"
+                    className="link-underline inline-flex items-center gap-1"
                   >
-                    Ver perfil completo
+                    {t("contact.viewProfile")}
+                    <ArrowUpRight className="h-3.5 w-3.5" />
                   </a>
-                </div>
+                </dd>
               </div>
-            </div>
 
-            <div className="bg-cyber-gray/60 backdrop-blur-sm border border-cyber-blue/50 rounded-lg p-6 shadow-cyber-card">
-              <div className="flex items-center gap-3 mb-4">
-                <Clock className="h-5 w-5 text-cyber-blue" />
-                <h4 className="font-bold text-white">{t("contact.availability")}</h4>
+              <div className="border-b border-border pb-5">
+                <dt className="text-muted-foreground">{t("contact.phone")}</dt>
+                <dd className="mt-1">
+                  <a href={LINKS.phoneHref} className="link-underline">
+                    {LINKS.phone}
+                  </a>
+                </dd>
               </div>
-              <p className="text-gray-200 text-sm mb-2">{t("contact.schedule")}</p>
-              <p className="text-gray-200 text-sm">{t("contact.response")}</p>
-            </div>
+
+              <div className="border-b border-border pb-5">
+                <dt className="text-muted-foreground">{t("contact.location")}</dt>
+                <dd className="mt-1 text-foreground">Bogotá, Colombia (GMT-5)</dd>
+              </div>
+
+              <div>
+                <dt className="text-muted-foreground">{t("contact.availability")}</dt>
+                <dd className="mt-1 text-foreground">{t("contact.schedule")}</dd>
+                <dd className="mt-1 text-muted-foreground">{t("contact.response")}</dd>
+              </div>
+            </dl>
           </div>
 
-          {/* Enhanced Contact Form */}
-          <div className="lg:col-span-2">
-            <div className="bg-cyber-gray/60 backdrop-blur-sm border border-cyber-purple/50 rounded-lg p-8 shadow-cyber-card">
-              <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-                <Send className="h-6 w-6 text-cyber-purple" />
-                {t("contact.formTitle")}
-              </h3>
-
-              <form onSubmit={handleSubmit} className="space-y-6">
-                {/* Basic Info Row */}
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-sm font-medium text-white mb-2">{t("contact.name")} *</label>
-                    <Input
-                      required
-                      placeholder={t("contact.namePlaceholder")}
-                      value={formData.name}
-                      onChange={(e) => handleInputChange("name", e.target.value)}
-                      className="bg-cyber-darker/80 border-cyber-purple/60 text-white placeholder-gray-400 focus:border-cyber-purple focus:ring-cyber-purple"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-white mb-2">{t("contact.email")} *</label>
-                    <Input
-                      type="email"
-                      required
-                      placeholder={t("contact.emailPlaceholder")}
-                      value={formData.email}
-                      onChange={(e) => handleInputChange("email", e.target.value)}
-                      className="bg-cyber-darker/80 border-cyber-purple/60 text-white placeholder-gray-400 focus:border-cyber-purple focus:ring-cyber-purple"
-                    />
-                  </div>
+          <div className="lg:col-span-3">
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="grid gap-6 sm:grid-cols-2">
+                <div className="space-y-2">
+                  <label htmlFor="name" className="block text-sm text-foreground">
+                    {t("contact.name")} <span className="text-muted-foreground">*</span>
+                  </label>
+                  <Input
+                    id="name"
+                    required
+                    autoComplete="name"
+                    placeholder={t("contact.namePlaceholder")}
+                    value={formData.name}
+                    onChange={(e) => handleInputChange("name", e.target.value)}
+                  />
                 </div>
 
-                {/* Contact & Company Row */}
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-sm font-medium text-white mb-2">{t("contact.phone")}</label>
-                    <Input
-                      placeholder={t("contact.phonePlaceholder")}
-                      value={formData.phone}
-                      onChange={(e) => handleInputChange("phone", e.target.value)}
-                      className="bg-cyber-darker/80 border-cyber-purple/60 text-white placeholder-gray-400 focus:border-cyber-purple focus:ring-cyber-purple"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-white mb-2">{t("contact.company")}</label>
-                    <Input
-                      placeholder={t("contact.companyPlaceholder")}
-                      value={formData.company}
-                      onChange={(e) => handleInputChange("company", e.target.value)}
-                      className="bg-cyber-darker/80 border-cyber-purple/60 text-white placeholder-gray-400 focus:border-cyber-purple focus:ring-cyber-purple"
-                    />
-                  </div>
+                <div className="space-y-2">
+                  <label htmlFor="email" className="block text-sm text-foreground">
+                    Email <span className="text-muted-foreground">*</span>
+                  </label>
+                  <Input
+                    id="email"
+                    type="email"
+                    required
+                    autoComplete="email"
+                    placeholder={t("contact.emailPlaceholder")}
+                    value={formData.email}
+                    onChange={(e) => handleInputChange("email", e.target.value)}
+                  />
+                </div>
+              </div>
+
+              <div className="grid gap-6 sm:grid-cols-2">
+                <div className="space-y-2">
+                  <label htmlFor="phone" className="block text-sm text-foreground">
+                    {t("contact.phone")}
+                  </label>
+                  <Input
+                    id="phone"
+                    type="tel"
+                    autoComplete="tel"
+                    placeholder={t("contact.phonePlaceholder")}
+                    value={formData.phone}
+                    onChange={(e) => handleInputChange("phone", e.target.value)}
+                  />
                 </div>
 
-                {/* Project Details Row */}
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-sm font-medium text-white mb-2">{t("contact.projectType")} *</label>
-                    <Select
-                      value={formData.projectType}
-                      onValueChange={(value) => handleInputChange("projectType", value)}
-                    >
-                      <SelectTrigger className="bg-cyber-darker/80 border-cyber-purple/60 text-white">
-                        <SelectValue placeholder={t("contact.projectTypePlaceholder")} />
-                      </SelectTrigger>
-                      <SelectContent className="bg-cyber-darker border-cyber-purple/60 text-white">
-                        <SelectItem value="web-app">{t("contact.projectType.web-app")}</SelectItem>
-                        <SelectItem value="mobile-app">{t("contact.projectType.mobile-app")}</SelectItem>
-                        <SelectItem value="ecommerce">{t("contact.projectType.ecommerce")}</SelectItem>
-                        <SelectItem value="dashboard">{t("contact.projectType.dashboard")}</SelectItem>
-                        <SelectItem value="api">{t("contact.projectType.api")}</SelectItem>
-                        <SelectItem value="maintenance">{t("contact.projectType.maintenance")}</SelectItem>
-                        <SelectItem value="consulting">{t("contact.projectType.consulting")}</SelectItem>
-                        <SelectItem value="other">{t("contact.projectType.other")}</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-white mb-2">{t("contact.budget")}</label>
-                    <Select value={formData.budget} onValueChange={(value) => handleInputChange("budget", value)}>
-                      <SelectTrigger className="bg-cyber-darker/80 border-cyber-purple/60 text-white">
-                        <SelectValue placeholder={t("contact.budgetPlaceholder")} />
-                      </SelectTrigger>
-                      <SelectContent className="bg-cyber-darker border-cyber-purple/60 text-white">
-                        <SelectItem value="under-5k">{t("contact.budget.under-5k")}</SelectItem>
-                        <SelectItem value="5k-15k">{t("contact.budget.5k-15k")}</SelectItem>
-                        <SelectItem value="15k-30k">{t("contact.budget.15k-30k")}</SelectItem>
-                        <SelectItem value="30k-50k">{t("contact.budget.30k-50k")}</SelectItem>
-                        <SelectItem value="over-50k">{t("contact.budget.over-50k")}</SelectItem>
-                        <SelectItem value="discuss">{t("contact.budget.discuss")}</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
+                <div className="space-y-2">
+                  <label htmlFor="company" className="block text-sm text-foreground">
+                    {t("contact.company")}
+                  </label>
+                  <Input
+                    id="company"
+                    autoComplete="organization"
+                    placeholder={t("contact.companyPlaceholder")}
+                    value={formData.company}
+                    onChange={(e) => handleInputChange("company", e.target.value)}
+                  />
                 </div>
+              </div>
 
-                {/* Timeline */}
-                <div>
-                  <label className="block text-sm font-medium text-white mb-2">{t("contact.timeline")}</label>
-                  <Select value={formData.timeline} onValueChange={(value) => handleInputChange("timeline", value)}>
-                    <SelectTrigger className="bg-cyber-darker/80 border-cyber-purple/60 text-white">
-                      <SelectValue placeholder={t("contact.timelinePlaceholder")} />
+              <div className="grid gap-6 sm:grid-cols-2">
+                <div className="space-y-2">
+                  <label htmlFor="projectType" className="block text-sm text-foreground">
+                    {t("contact.projectType")} <span className="text-muted-foreground">*</span>
+                  </label>
+                  <Select
+                    required
+                    value={formData.projectType}
+                    onValueChange={(value) => handleInputChange("projectType", value)}
+                  >
+                    <SelectTrigger id="projectType">
+                      <SelectValue placeholder={t("contact.projectTypePlaceholder")} />
                     </SelectTrigger>
-                    <SelectContent className="bg-cyber-darker border-cyber-purple/60 text-white">
-                      <SelectItem value="asap">{t("contact.timeline.asap")}</SelectItem>
-                      <SelectItem value="1-month">{t("contact.timeline.1-month")}</SelectItem>
-                      <SelectItem value="2-3-months">{t("contact.timeline.2-3-months")}</SelectItem>
-                      <SelectItem value="3-6-months">{t("contact.timeline.3-6-months")}</SelectItem>
-                      <SelectItem value="flexible">{t("contact.timeline.flexible")}</SelectItem>
+                    <SelectContent>
+                      {projectTypes.map((type) => (
+                        <SelectItem key={type} value={type}>
+                          {t(`contact.projectType.${type}`)}
+                        </SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                 </div>
 
-                {/* Message */}
-                <div>
-                  <label className="block text-sm font-medium text-white mb-2">{t("contact.message")} *</label>
-                  <Textarea
-                    required
-                    placeholder={t("contact.messagePlaceholder")}
-                    rows={5}
-                    value={formData.message}
-                    onChange={(e) => handleInputChange("message", e.target.value)}
-                    className="bg-cyber-darker/80 border-cyber-purple/60 text-white placeholder-gray-400 focus:border-cyber-purple focus:ring-cyber-purple resize-none"
-                  />
-                </div>
-
-                {/* Newsletter Checkbox */}
-                <div className="flex items-center space-x-2">
-                  <Checkbox
-                    id="newsletter"
-                    checked={formData.newsletter}
-                    onCheckedChange={(checked) => handleInputChange("newsletter", checked as boolean)}
-                    className="border-cyber-purple/60 data-[state=checked]:bg-cyber-purple"
-                  />
-                  <label htmlFor="newsletter" className="text-sm text-gray-300">
-                    {t("contact.newsletter")}
+                <div className="space-y-2">
+                  <label htmlFor="budget" className="block text-sm text-foreground">
+                    {t("contact.budget")}
                   </label>
-                </div>
-
-                {/* Submit Button */}
-                <div className="pt-4 pb-4">
-                  {submitStatus === "success" ? (
-                    <div className="flex items-center justify-center gap-3 p-4 bg-cyber-lime/20 border border-cyber-lime/50 rounded-lg">
-                      <CheckCircle className="h-5 w-5 text-cyber-lime" />
-                      <span className="text-cyber-lime font-medium">{t("contact.success")}</span>
-                    </div>
-                  ) : submitStatus === "error" ? (
-                    <div className="flex items-center justify-center gap-3 p-4 bg-red-500/20 border border-red-500/50 rounded-lg mb-4">
-                      <AlertCircle className="h-5 w-5 text-red-400" />
-                      <span className="text-red-400 font-medium">{t("contact.error")}</span>
-                    </div>
-                  ) : null}
-
-                  <Button
-                    type="submit"
-                    disabled={isSubmitting || submitStatus === "success"}
-                    className="w-full bg-cyber-purple hover:bg-cyber-purple-glow text-white py-4 text-lg font-semibold shadow-neon-purple hover:shadow-neon-purple transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                  <Select
+                    value={formData.budget}
+                    onValueChange={(value) => handleInputChange("budget", value)}
                   >
-                    {isSubmitting ? (
-                      <div className="flex items-center gap-3">
-                        <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                        {t("contact.sending")}
-                      </div>
-                    ) : (
-                      <div className="flex items-center gap-3">
-                        <Send className="h-5 w-5" />
-                        {t("contact.send")}
-                      </div>
-                    )}
-                  </Button>
+                    <SelectTrigger id="budget">
+                      <SelectValue placeholder={t("contact.budgetPlaceholder")} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {budgets.map((budget) => (
+                        <SelectItem key={budget} value={budget}>
+                          {t(`contact.budget.${budget}`)}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 </div>
-              </form>
-            </div>
+              </div>
+
+              <div className="space-y-2">
+                <label htmlFor="timeline" className="block text-sm text-foreground">
+                  {t("contact.timeline")}
+                </label>
+                <Select
+                  value={formData.timeline}
+                  onValueChange={(value) => handleInputChange("timeline", value)}
+                >
+                  <SelectTrigger id="timeline">
+                    <SelectValue placeholder={t("contact.timelinePlaceholder")} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {timelines.map((timeline) => (
+                      <SelectItem key={timeline} value={timeline}>
+                        {t(`contact.timeline.${timeline}`)}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-2">
+                <label htmlFor="message" className="block text-sm text-foreground">
+                  {t("contact.message")} <span className="text-muted-foreground">*</span>
+                </label>
+                <Textarea
+                  id="message"
+                  required
+                  rows={5}
+                  placeholder={t("contact.messagePlaceholder")}
+                  value={formData.message}
+                  onChange={(e) => handleInputChange("message", e.target.value)}
+                  className="resize-none"
+                />
+              </div>
+
+              <div className="flex items-start gap-3">
+                <Checkbox
+                  id="newsletter"
+                  checked={formData.newsletter}
+                  onCheckedChange={(checked) => handleInputChange("newsletter", checked === true)}
+                  className="mt-0.5"
+                />
+                <label htmlFor="newsletter" className="text-sm leading-snug text-muted-foreground">
+                  {t("contact.newsletter")}
+                </label>
+              </div>
+
+              <div
+                aria-live="polite"
+                className={submitStatus === "idle" ? "sr-only" : "text-sm"}
+              >
+                {submitStatus === "success" && (
+                  <p className="flex items-center gap-2 text-brand">
+                    <CheckCircle2 className="h-4 w-4" />
+                    {t("contact.success")}
+                  </p>
+                )}
+                {submitStatus === "error" && (
+                  <p className="flex items-center gap-2 text-destructive">
+                    <AlertCircle className="h-4 w-4" />
+                    {t("contact.error")}
+                  </p>
+                )}
+              </div>
+
+              <Button
+                type="submit"
+                disabled={isSubmitting}
+                className="h-11 bg-brand-solid px-5 text-sm font-medium text-brand-solid-foreground hover:bg-brand-solid hover:opacity-90"
+              >
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    {t("contact.sending")}
+                  </>
+                ) : (
+                  t("contact.send")
+                )}
+              </Button>
+            </form>
           </div>
         </div>
       </div>
