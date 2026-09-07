@@ -21,33 +21,37 @@ export function useReveal<T extends HTMLElement = HTMLDivElement>(threshold = 0.
     const element = ref.current
     if (!element) return
 
-    if (typeof IntersectionObserver === "undefined") {
-      setIsVisible(true)
-      return
+    // Sin IntersectionObserver no se crea el observer y `delivered` se queda
+    // en false, así que el temporizador de seguridad revela igualmente. Se
+    // resuelve por ahí en vez de con un setState suelto dentro del efecto.
+    const supported = typeof IntersectionObserver !== "undefined"
+    let delivered = false
+    let observer: IntersectionObserver | null = null
+
+    if (supported) {
+      observer = new IntersectionObserver(
+        (entries) => {
+          delivered = true
+          if (entries.some((entry) => entry.isIntersecting)) {
+            setIsVisible(true)
+            observer?.disconnect()
+          }
+        },
+        { threshold, rootMargin: "0px 0px -10% 0px" },
+      )
+      observer.observe(element)
     }
 
-    let delivered = false
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        delivered = true
-        if (entries.some((entry) => entry.isIntersecting)) {
-          setIsVisible(true)
-          observer.disconnect()
-        }
+    const fallback = window.setTimeout(
+      () => {
+        if (!delivered) setIsVisible(true)
       },
-      { threshold, rootMargin: "0px 0px -10% 0px" },
+      supported ? 1500 : 0,
     )
-
-    observer.observe(element)
-
-    const fallback = window.setTimeout(() => {
-      if (!delivered) setIsVisible(true)
-    }, 1500)
 
     return () => {
       window.clearTimeout(fallback)
-      observer.disconnect()
+      observer?.disconnect()
     }
   }, [threshold])
 

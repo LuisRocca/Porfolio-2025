@@ -598,8 +598,14 @@ const translations = { es, en }
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [language, setLanguage] = useState<Language>("es")
 
+  // El idioma guardado solo se puede leer tras hidratar: en el servidor no hay
+  // localStorage, y arrancar el estado con su valor desajustaria el HTML que
+  // React compara. Es el patron canonico para este caso, y por eso se silencia
+  // la regla aqui en vez de reescribirlo con useSyncExternalStore, que aniade
+  // complejidad sin cambiar el comportamiento.
   useEffect(() => {
     const saved = localStorage.getItem("language")
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (saved === "es" || saved === "en") setLanguage(saved)
   }, [])
 
