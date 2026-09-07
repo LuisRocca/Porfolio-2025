@@ -204,6 +204,79 @@ presencia de tests), nunca la existencia de un campo opcional.
 
 ---
 
+## 9. Vercel no despliega aunque el build salga en verde
+
+**Problema.** El despliegue de preview fallaba. El log de Vercel mostraba el
+build **completo y correcto** —`Build Completed in /vercel/output [53s]`,
+seguido de `Deploying outputs...`— y terminaba en:
+
+```
+Vulnerable version of Next.js detected, please update immediately.
+```
+
+**Causa.** No era un fallo de compilación: **Vercel bloquea el despliegue**
+cuando la versión de Next.js está en su lista de vulnerables. Next 15.2.4
+arrastra CVEs críticos (cache key confusion y content injection en la Image
+Optimization API, y SSRF por manejo indebido de redirecciones en middleware).
+
+Buscar el error en el build fue el primer instinto y era el sitio equivocado:
+el build era correcto, lo que fallaba era la política de despliegue.
+
+**Fix.** Subir a `next@16.3.4` y `eslint-config-next@16.3.4`. Comprobado con
+`npm audit`: de `critical` a **cero vulnerabilidades en next**. También
+`nodemailer@10` (era `high`).
+
+El salto de major arrastró tres cosas:
+
+1. **Next 16 usa un parser de CSS estricto** y reventaba con
+   `var(--spacing(8))`, CSS inválido que Tailwind 3 generaba a partir de
+   `components/ui/calendar.tsx`, un fichero de shadcn con sintaxis de
+   Tailwind v4. Ese componente **no se usaba**: de los 49 de `components/ui/`
+   sólo 5 se importan de verdad. Se eliminaron los 44 restantes.
+2. **`next lint` ya no existe** en Next 16. El script pasó a `eslint .`.
+3. **`FlatCompat` deja de funcionar** con `eslint-config-next@16`, que ya
+   exporta flat config nativo: lanza un error de validación de esquema. La
+   config ahora importa `eslint-config-next/core-web-vitals` directamente y
+   `@eslint/eslintrc` se desinstaló.
+
+Además se borró `pnpm-lock.yaml`, un stub de 92 bytes sin ninguna dependencia
+que hacía a Vercel anunciar `Detected pnpm-lock.yaml` en un proyecto npm.
+
+**Prevención.** Un build verde no garantiza un despliegue: **leer el log hasta
+la última línea**, porque el motivo del bloqueo aparece después del resumen de
+rutas. Y mantener las dependencias al día no es higiene opcional cuando la
+plataforma de despliegue audita la versión del framework.
+
+---
+
+## 10. Reglas nuevas de lint al subir de major
+
+**Problema.** Con `eslint-config-next@16`, tres ficheros pasaron a dar error
+por `react-hooks/set-state-in-effect`, una regla que no existía en la versión
+anterior.
+
+**Causa.** Llamar a `setState` de forma síncrona dentro de un `useEffect`
+provoca renderizados en cascada. Los tres casos eran patrones habituales:
+marcar el montaje para no desajustar la hidratación, revelar contenido cuando
+falta una API del navegador, y leer `localStorage` tras hidratar.
+
+**Fix.** Dos se arreglaron de verdad y sólo uno se silenció:
+
+- **`theme-toggle.tsx`**: se pintan los dos iconos y decide el CSS por la clase
+  `dark` del documento. El estado `mounted` desapareció por completo.
+- **`use-reveal.ts`**: cuando no hay `IntersectionObserver` ya no se llama a
+  `setState` en el efecto; el temporizador de seguridad que ya existía lo
+  resuelve con retardo cero.
+- **`language-context.tsx`**: leer el idioma guardado sólo es posible tras
+  hidratar. Se silencia la regla **en esa línea, con el motivo escrito**.
+
+**Prevención.** Ante reglas nuevas tras un salto de major, mirarlas caso por
+caso. Desactivarlas en bloque es como se llegó a `ignoreDuringBuilds` (ver #4).
+Aquí dos de tres tenían arreglo real, y el que no lo tenía lleva su
+justificación al lado.
+
+---
+
 ## Variables de entorno necesarias
 
 | Variable | Uso | Obligatoria |
